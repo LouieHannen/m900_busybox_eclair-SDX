@@ -21,7 +21,8 @@ Notes
 -----
 - YOU MUST CROSS-COMPILE THIS CODE FOR IT TO WORK PROPERLY ON THE MOMENT.
 Please make note of the toolchain location in .config and alter if needed.
-- DNS will not function without a resolv.conf in /system/etc.
+- DNS will not function without a resolv.conf in /system/etc. Use the sample
+resolv.conf or make your own.
 - Please see README-orig for the original busybox readme.
 
 Changelog
