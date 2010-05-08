@@ -13,6 +13,8 @@ Version: 1.16.1-05072010
 HW Platform: Samsung m900 (Moment)
 SW Platform: Android 2.1 (Eclair)
 Maintainer: LouZiffer (louie@rps.net)
+Credit: joeykrim and speedrabbit for original base config. SDX Developers for
+being awesome.
 
 Description: Busybox implementation for the Samsung Moment running Android 2.1.
 For full feature list, see the following URL:
