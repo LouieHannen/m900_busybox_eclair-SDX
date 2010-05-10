@@ -9,7 +9,7 @@
 		     http://www.sdx-developers.com/
 
 Release: busybox
-Version: 1.16.1-05082010
+Version: 1.16.1-05102010TEST
 HW Platform: Samsung m900 (Moment)
 SW Platform: Android 2.1 (Eclair)
 Maintainer: LouZiffer (louie@rps.net)
@@ -30,6 +30,11 @@ resolv.conf or make your own.
 
 Changelog
 ---------
+05102010
+- Removed applets from standard busybox config which are duplicated on system.
+- Created separate recovery config which retains full list of applets minus
+'who' applet, which was unnecessary.
+
 05082010
 - Added basename applet to facilitate VPN functionality.
 - Added dirname applet to facilitate VPN functionality.
