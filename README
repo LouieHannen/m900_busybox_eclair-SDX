@@ -9,7 +9,7 @@
 		     http://www.sdx-developers.com/
 
 Release: busybox
-Version: 1.16.1-05102010TEST
+Version: v1.16.1_SDX-LouZiffer-v1.00
 HW Platform: Samsung m900 (Moment)
 SW Platform: Android 2.1 (Eclair)
 Maintainer: LouZiffer (louie@rps.net)
@@ -17,31 +17,16 @@ Credit: joeykrim and speedrabbit for original base config. SDX Developers for
 being awesome.
 
 Description: Busybox implementation for the Samsung Moment running Android 2.1.
-For full feature list, see the following URL:
+For full feature list see:
 http://forum.sdx-developers.com/android-2-1-development/(source)-sdx-busybox-for-android-2-1/
 
 Notes
 -----
+- .config_standard is for use in standard boot mode.
+- .config_recovery is for use in recovery boot mode.
 - YOU MUST CROSS-COMPILE THIS CODE FOR IT TO WORK PROPERLY ON THE MOMENT.
-Please make note of the toolchain location in .config and alter if needed.
+  Please make note of the toolchain location in the .config files and alter 
+  if needed.
 - DNS will not function without a resolv.conf in /system/etc. Use the sample
-resolv.conf or make your own.
+  resolv.conf or make your own.
 - Please see README-orig for the original busybox readme.
-
-Changelog
----------
-05102010
-- Removed applets from standard busybox config which are duplicated on system.
-- Created separate recovery config which retains full list of applets minus
-'who' applet, which was unnecessary.
-
-05082010
-- Added basename applet to facilitate VPN functionality.
-- Added dirname applet to facilitate VPN functionality.
-- Added expr applet to facilitate VPN functionality.
-- Added sed applet to facilitate VPN functionality.
-- Added uname applet to facilitate VPN functionality.
-
-
-05072010
-- Added ip applet to facilitate VPN functionality.
