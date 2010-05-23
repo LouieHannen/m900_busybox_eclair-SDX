@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Busybox version: 1.16.1_SDX-LouZiffer-v1.00
-# Fri May 21 11:33:11 2010
+# Sat May 22 22:30:50 2010
 #
 CONFIG_HAVE_DOT_CONFIG=y
 
@@ -49,8 +49,8 @@ CONFIG_STATIC=y
 # CONFIG_FEATURE_INDIVIDUAL is not set
 # CONFIG_FEATURE_SHARED_BUSYBOX is not set
 CONFIG_LFS=y
-CONFIG_CROSS_COMPILER_PREFIX="/home/moment/toolchain/uClibc/buildroot-2010.02/output/staging/usr/bin/arm-linux-uclibcgnueabi-"
-CONFIG_EXTRA_CFLAGS="-I /home/moment/toolchain/uClibc/buildroot-2010.02/output/staging/usr/include"
+CONFIG_CROSS_COMPILER_PREFIX="/home/louie/buildroot-2010.02/output/staging/usr/bin/arm-linux-uclibcgnueabi-"
+CONFIG_EXTRA_CFLAGS="-I /home/louie/buildroot-2010.02/output/staging/usr/include"
 
 #
 # Debugging Options
@@ -239,7 +239,7 @@ CONFIG_SUM=y
 # CONFIG_TAC is not set
 CONFIG_TAIL=y
 CONFIG_FEATURE_FANCY_TAIL=y
-# CONFIG_TEE is not set
+CONFIG_TEE=y
 # CONFIG_FEATURE_TEE_USE_BLOCK_IO is not set
 CONFIG_TEST=y
 CONFIG_FEATURE_TEST_64=y
@@ -321,7 +321,7 @@ CONFIG_WHICH=y
 #
 # Editors
 #
-# CONFIG_AWK is not set
+CONFIG_AWK=y
 # CONFIG_FEATURE_AWK_LIBM is not set
 # CONFIG_CMP is not set
 CONFIG_DIFF=y
@@ -613,10 +613,10 @@ CONFIG_FEATURE_CROND_DIR=""
 # CONFIG_LAST is not set
 # CONFIG_FEATURE_LAST_SMALL is not set
 # CONFIG_FEATURE_LAST_FANCY is not set
-# CONFIG_LESS is not set
-CONFIG_FEATURE_LESS_MAXLINES=0
-# CONFIG_FEATURE_LESS_BRACKETS is not set
-# CONFIG_FEATURE_LESS_FLAGS is not set
+CONFIG_LESS=y
+CONFIG_FEATURE_LESS_MAXLINES=9999999
+CONFIG_FEATURE_LESS_BRACKETS=y
+CONFIG_FEATURE_LESS_FLAGS=y
 # CONFIG_FEATURE_LESS_MARKS is not set
 # CONFIG_FEATURE_LESS_REGEXP is not set
 # CONFIG_FEATURE_LESS_WINCH is not set
