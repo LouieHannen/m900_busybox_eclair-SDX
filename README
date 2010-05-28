@@ -9,12 +9,12 @@
 		     http://www.sdx-developers.com/
 
 Release: busybox
-Version: v1.16.1_SDX-LouZiffer-v1.00
+Version: v1.16.1_SDX-LouZiffer-v1.01
 HW Platform: Samsung m900 (Moment)
 SW Platform: Android 2.1 (Eclair)
 Maintainer: LouZiffer (louie@rps.net)
-Credit: joeykrim and speedrabbit for original base config. SDX Developers for
-being awesome.
+Credit: Busybox team for their code. joeykrim and speedrabbit for original 
+base config. SDX Developers for being awesome.
 
 Description: Busybox implementation for the Samsung Moment running Android 2.1.
 For full feature list see:
