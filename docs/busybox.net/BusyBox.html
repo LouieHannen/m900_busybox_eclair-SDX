@@ -114,19 +114,44 @@ been enabled, more detailed usage information will also be available.</p>
 <h1><a name="commands">COMMANDS</a></h1>
 <p>Currently available applets include:</p>
 <pre>
-        ash, awk, bunzip2, bzcat, bzip2, chmod, chown, clear, cp, date, dd,
-        depmod, df, diff, dos2unix, echo, ed, egrep, false, fgrep, find,
-        grep, gunzip, gzip, id, ifconfig, ifdown, ifup, insmod, install, ip,
-        ipaddr, iplink, iproute, iprule, iptunnel, kill, killall, less, ln,
-        ls, lsmod, md5sum, mkdir, modprobe, mount, mv, netstat, ping, ping6,
-        printf, ps, pwd, rm, rmdir, rmmod, route, sed, sh, sleep, su,
-        sulogin, sum, tail, tar, telnet, top, touch, true, tty, umount,
-        uncompress, unix2dos, unzip, uptime, vi, wget, who, whoami, zcat</pre>
+        [, [[, arp, ash, awk, basename, bunzip2, bzcat, bzip2, chgrp,
+        chroot, cksum, cp, date, df, diff, dirname, dmesg, dos2unix, du,
+        dumpkmap, echo, egrep, env, expr, false, fgrep, find, free, fuser,
+        grep, gunzip, head, id, ifconfig, install, ip, ipaddr, iplink,
+        iproute, iprule, iptunnel, kbd_mode, less, ls, md5sum, more, mount,
+        netstat, nohup, nslookup, pidof, pipe_progress, ps, pscan, pwd,
+        readlink, realpath, reset, route, sed, setconsole, setkeycodes,
+        setlogcons, showkey, sleep, sort, start-stop-daemon, stat, sum,
+        tail, tar, tee, test, time, top, touch, tr, traceroute, true, tty,
+        umount, uname, unix2dos, unzip, uptime, usleep, vi, wc, wget, which,
+        whoami, zcat</pre>
 <p>
 </p>
 <hr />
 <h1><a name="command_descriptions">COMMAND DESCRIPTIONS</a></h1>
 <dl>
+<dt><strong><a name="arp" class="item"><strong>arp</strong></a></strong></dt>
+
+<dd>
+<p><table cellspacing="0" cellpadding="0"><tr><td>arp 
+<tr><td>[-vn]<td>[-H HWTYPE] [-i IF] -a [HOSTNAME]
+<tr><td>[-v]<td>    [-i IF] -d HOSTNAME [pub]
+<tr><td>[-v]<td>[-H HWTYPE] [-i IF] -s HOSTNAME HWADDR [temp]
+<tr><td>[-v]<td>[-H HWTYPE] [-i IF] -s HOSTNAME HWADDR [netmask MASK] pub
+<tr><td>[-v]<td>[-H HWTYPE] [-i IF] -Ds HOSTNAME IFACE [netmask MASK] pub</table></p>
+<p>Manipulate ARP cache</p>
+<p>Options:</p>
+<pre>
+        -a              Display (all) hosts
+        -s              Set new ARP entry
+        -d              Delete a specified entry
+        -v              Verbose
+        -n              Don't resolve names
+        -i IF           Network interface
+        -D              Read &lt;hwaddr&gt; from given device
+        -A, -p AF       Protocol family
+        -H HWTYPE       Hardware address type</pre>
+</dd>
 <dt><strong><a name="awk" class="item"><strong>awk</strong></a></strong></dt>
 
 <dd>
@@ -136,6 +161,12 @@ been enabled, more detailed usage information will also be available.</p>
         -v VAR=VAL      Set variable
         -F SEP          Use SEP as field separator
         -f FILE         Read program from FILE</pre>
+</dd>
+<dt><strong><a name="basename" class="item"><strong>basename</strong></a></strong></dt>
+
+<dd>
+<p>basename FILE [SUFFIX]</p>
+<p>Strip directory path and .SUFFIX from FILE</p>
 </dd>
 <dt><strong><a name="bunzip2" class="item"><strong>bunzip2</strong></a></strong></dt>
 
@@ -165,21 +196,11 @@ been enabled, more detailed usage information will also be available.</p>
         -f      Force
         -1..-9  Compression level</pre>
 </dd>
-<dt><strong><a name="chmod" class="item"><strong>chmod</strong></a></strong></dt>
+<dt><strong><a name="chgrp" class="item"><strong>chgrp</strong></a></strong></dt>
 
 <dd>
-<p>chmod [-R] MODE[,MODE]... FILE...</p>
-<p>Each MODE is one or more of the letters ugoa, one of the
-symbols +-= and one or more of the letters rwxst</p>
-<p>Options:</p>
-<pre>
-        -R      Recurse</pre>
-</dd>
-<dt><strong><a name="chown" class="item"><strong>chown</strong></a></strong></dt>
-
-<dd>
-<p>chown [-RhLHP]... OWNER[&lt;.|:&gt;[GROUP]] FILE...</p>
-<p>Change the owner and/or group of each FILE to OWNER and/or GROUP</p>
+<p>chgrp [-RhLHP]... GROUP FILE...</p>
+<p>Change the group membership of each FILE to GROUP</p>
 <p>Options:</p>
 <pre>
         -R      Recurse
@@ -188,11 +209,17 @@ symbols +-= and one or more of the letters rwxst</p>
         -H      Traverse symlinks on command line only
         -P      Don't traverse symlinks (default)</pre>
 </dd>
-<dt><strong><a name="clear" class="item"><strong>clear</strong></a></strong></dt>
+<dt><strong><a name="chroot" class="item"><strong>chroot</strong></a></strong></dt>
 
 <dd>
-<p>clear</p>
-<p>Clear screen</p>
+<p>chroot NEWROOT [PROG ARGS]</p>
+<p>Run PROG with root directory set to NEWROOT</p>
+</dd>
+<dt><strong><a name="cksum" class="item"><strong>cksum</strong></a></strong></dt>
+
+<dd>
+<p>cksum FILES...</p>
+<p>Calculate the CRC32 checksums of FILES</p>
 </dd>
 <dt><strong><a name="cp" class="item"><strong>cp</strong></a></strong></dt>
 
@@ -218,15 +245,15 @@ symbols +-= and one or more of the letters rwxst</p>
 <p>Display time (using +FMT), or set time</p>
 <p>Options:</p>
 <pre>
-        [-s] TIME       Set time to TIME
-        -u              Work in UTC (don't convert to local time)
-        -R              Output RFC-2822 compliant date string
+        [-s,--set] TIME Set time to TIME
+        -u,--utc        Work in UTC (don't convert to local time)
+        -R,--rfc-2822   Output RFC-2822 compliant date string
         -I[SPEC]        Output ISO-8601 compliant date string
                         SPEC='date' (default) for date only,
                         'hours', 'minutes', or 'seconds' for date and
                         time to the indicated precision
-        -r FILE         Display last modification time of FILE
-        -d TIME         Display TIME, not 'now'
+        -r,--reference FILE     Display last modification time of FILE
+        -d,--date TIME  Display TIME, not 'now'
         -D FMT          Use FMT for -d TIME conversion</pre>
 <p>Recognized TIME formats:</p>
 <pre>
@@ -234,23 +261,6 @@ symbols +-= and one or more of the letters rwxst</p>
         [YYYY.]MM.DD-hh:mm[:ss]
         YYYY-MM-DD hh:mm[:ss]
         [[[[[YY]YY]MM]DD]hh]mm[.ss]</pre>
-</dd>
-<dt><strong><a name="dd" class="item"><strong>dd</strong></a></strong></dt>
-
-<dd>
-<p><table cellspacing="0" cellpadding="0"><tr><td>dd [if=FILE] [of=FILE] [bs=N] [count=N] [skip=N]
-<tr><td><td>[seek=N]</table></p>
-<p>Copy a file with converting and formatting</p>
-<p>Options:</p>
-<pre>
-        if=FILE         Read from FILE instead of stdin
-        of=FILE         Write to FILE instead of stdout
-        bs=N            Read and write N bytes at a time
-        count=N         Copy only N input blocks
-        skip=N          Skip N input blocks
-        seek=N          Skip N output blocks</pre>
-<p>Numbers may be suffixed by c (x1), w (x2), b (x512), kD (x1000), k (x1024),
-MD (x1000000), M (x1048576), GD (x1000000000) or G (x1073741824)</p>
 </dd>
 <dt><strong><a name="df" class="item"><strong>df</strong></a></strong></dt>
 
@@ -291,6 +301,23 @@ This implementation supports unified diffs only.</p>
         -U      Output LINES lines of context
         -w      Ignore all whitespace</pre>
 </dd>
+<dt><strong><a name="dirname" class="item"><strong>dirname</strong></a></strong></dt>
+
+<dd>
+<p>dirname FILENAME</p>
+<p>Strip non-directory suffix from FILENAME</p>
+</dd>
+<dt><strong><a name="dmesg" class="item"><strong>dmesg</strong></a></strong></dt>
+
+<dd>
+<p>dmesg [-c] [-n LEVEL] [-s SIZE]</p>
+<p>Print or control the kernel ring buffer</p>
+<p>Options:</p>
+<pre>
+        -c              Clear ring buffer after printing
+        -n LEVEL        Set console logging level
+        -s SIZE         Buffer size</pre>
+</dd>
 <dt><strong><a name="dos2unix" class="item"><strong>dos2unix</strong></a></strong></dt>
 
 <dd>
@@ -301,6 +328,32 @@ When no file is given, use stdin/stdout.</p>
 <pre>
         -u      dos2unix
         -d      unix2dos</pre>
+</dd>
+<dt><strong><a name="du" class="item"><strong>du</strong></a></strong></dt>
+
+<dd>
+<p>du [-aHLdclsxhmk] [FILE]...</p>
+<p>Summarize disk space used for each FILE and/or directory.
+Disk space is printed in units of 1024 bytes.</p>
+<p>Options:</p>
+<pre>
+        -a      Show file sizes too
+        -L      Follow all symlinks
+        -H      Follow symlinks on command line
+        -d N    Limit output to directories (and files with -a) of depth &lt; N
+        -c      Show grand total
+        -l      Count sizes many times if hard linked
+        -s      Display only a total for each argument
+        -x      Skip directories on different filesystems
+        -h      Sizes in human readable format (e.g., 1K 243M 2G )
+        -m      Sizes in megabytes
+        -k      Sizes in kilobytes (default)</pre>
+</dd>
+<dt><strong><a name="dumpkmap" class="item"><strong>dumpkmap</strong></a></strong></dt>
+
+<dd>
+<p>dumpkmap &gt; keymap</p>
+<p>Print a binary keyboard translation table to stdout</p>
 </dd>
 <dt><strong><a name="echo" class="item"><strong>echo</strong></a></strong></dt>
 
@@ -313,10 +366,51 @@ When no file is given, use stdin/stdout.</p>
         -e      Interpret backslash-escaped characters (i.e., \t=tab)
         -E      Disable interpretation of backslash-escaped characters</pre>
 </dd>
-<dt><strong><a name="ed" class="item"><strong>ed</strong></a></strong></dt>
+<dt><strong><a name="env" class="item"><strong>env</strong></a></strong></dt>
 
 <dd>
-<p>ed</p>
+<p>env [-iu] [-] [name=value]... [PROG ARGS]</p>
+<p>Print the current environment or run PROG after setting up
+the specified environment</p>
+<p>Options:</p>
+<pre>
+        -, -i   Start with an empty environment
+        -u      Remove variable from the environment</pre>
+</dd>
+<dt><strong><a name="expr" class="item"><strong>expr</strong></a></strong></dt>
+
+<dd>
+<p>expr EXPRESSION</p>
+<p>Print the value of EXPRESSION to stdout</p>
+<p>EXPRESSION may be:</p>
+<pre>
+        ARG1 | ARG2     ARG1 if it is neither null nor 0, otherwise ARG2
+        ARG1 &amp; ARG2     ARG1 if neither argument is null or 0, otherwise 0
+        ARG1 &lt; ARG2     1 if ARG1 is less than ARG2, else 0. Similarly:
+        ARG1 &lt;= ARG2
+        ARG1 = ARG2
+        ARG1 != ARG2
+        ARG1 &gt;= ARG2
+        ARG1 &gt; ARG2
+        ARG1 + ARG2     Sum of ARG1 and ARG2. Similarly:
+        ARG1 - ARG2
+        ARG1 * ARG2
+        ARG1 / ARG2
+        ARG1 % ARG2
+        STRING : REGEXP         Anchored pattern match of REGEXP in STRING
+        match STRING REGEXP     Same as STRING : REGEXP
+        substr STRING POS LENGTH Substring of STRING, POS counted from 1
+        index STRING CHARS      Index in STRING where any CHARS is found, or 0
+        length STRING           Length of STRING
+        quote TOKEN             Interpret TOKEN as a string, even if
+                                it is a keyword like 'match' or an
+                                operator like '/'
+        (EXPRESSION)            Value of EXPRESSION</pre>
+<p>Beware that many operators need to be escaped or quoted for shells.
+Comparisons are arithmetic if both ARGs are numbers, else
+lexicographical. Pattern matches return the string matched between
+\( and \) or null; if \( and \) are not used, they return the number
+of characters matched or 0.</p>
 </dd>
 <dt><strong><a name="false" class="item"><strong>false</strong></a></strong></dt>
 
@@ -361,7 +455,28 @@ default EXPRESSION is '-print'</p>
         -exec CMD ARG ; Run CMD with all instances of {} replaced by the
                         matching files
         -prune          Stop traversing current subtree
+        -delete         Delete files, turns on -depth option
         (EXPR)          Group an expression</pre>
+</dd>
+<dt><strong><a name="free" class="item"><strong>free</strong></a></strong></dt>
+
+<dd>
+<p>free</p>
+<p>Display the amount of free and used system memory</p>
+</dd>
+<dt><strong><a name="fuser" class="item"><strong>fuser</strong></a></strong></dt>
+
+<dd>
+<p>fuser [OPTIONS] FILE or PORT/PROTO</p>
+<p>Find processes which use FILEs or PORTs</p>
+<p>Options:</p>
+<pre>
+        -m      Find processes which use same fs as FILEs
+        -4      Search only IPv4 space
+        -6      Search only IPv6 space
+        -s      Silent: just exit with 0 if any processes are found
+        -k      Kill found processes (otherwise display PIDs)
+        -SIGNAL Signal to send (default: TERM)</pre>
 </dd>
 <dt><strong><a name="grep" class="item"><strong>grep</strong></a></strong></dt>
 
@@ -402,16 +517,18 @@ default EXPRESSION is '-print'</p>
         -f      Force
         -t      Test file integrity</pre>
 </dd>
-<dt><strong><a name="gzip" class="item"><strong>gzip</strong></a></strong></dt>
+<dt><strong><a name="head" class="item"><strong>head</strong></a></strong></dt>
 
 <dd>
-<p>gzip [OPTIONS] [FILE]...</p>
-<p>Compress FILEs (or stdin)</p>
+<p>head [OPTIONS] [FILE]...</p>
+<p>Print first 10 lines of each FILE (or stdin) to stdout.
+With more than one FILE, precede each with a header giving the file name.</p>
 <p>Options:</p>
 <pre>
-        -c      Write to stdout
-        -d      Decompress
-        -f      Force</pre>
+        -n N    Print first N lines instead of first 10
+        -c N    Output the first N bytes
+        -q      Never output headers giving file names
+        -v      Always output headers giving file names</pre>
 </dd>
 <dt><strong><a name="id" class="item"><strong>id</strong></a></strong></dt>
 
@@ -433,48 +550,12 @@ default EXPRESSION is '-print'</p>
 <p>Configure a network interface</p>
 <p>Options:</p>
 <pre>
-        [add ADDRESS[/PREFIXLEN]]
-        [del ADDRESS[/PREFIXLEN]]
         [[-]broadcast [ADDRESS]] [[-]pointopoint [ADDRESS]]
         [netmask ADDRESS] [dstaddr ADDRESS]
         [hw ether ADDRESS] [metric NN] [mtu NN]
         [[-]trailers] [[-]arp] [[-]allmulti]
         [multicast] [[-]promisc] [txqueuelen NN] [[-]dynamic]
         [up|down] ...</pre>
-</dd>
-<dt><strong><a name="ifdown" class="item"><strong>ifdown</strong></a></strong></dt>
-
-<dd>
-<p>ifdown [-ainmvf] ifaces...</p>
-<p>Options:</p>
-<pre>
-        -a      De/configure all interfaces automatically
-        -i FILE Use FILE for interface definitions
-        -n      Print out what would happen, but don't do it
-                (note: doesn't disable mappings)
-        -m      Don't run any mappings
-        -v      Print out what would happen before doing it
-        -f      Force de/configuration</pre>
-</dd>
-<dt><strong><a name="ifup" class="item"><strong>ifup</strong></a></strong></dt>
-
-<dd>
-<p>ifup [-ainmvf] IFACE...</p>
-<p>Options:</p>
-<pre>
-        -a      De/configure all interfaces automatically
-        -i FILE Use FILE for interface definitions
-        -n      Print out what would happen, but don't do it
-                (note: doesn't disable mappings)
-        -m      Don't run any mappings
-        -v      Print out what would happen before doing it
-        -f      Force de/configuration</pre>
-</dd>
-<dt><strong><a name="insmod" class="item"><strong>insmod</strong></a></strong></dt>
-
-<dd>
-<p>insmod FILE [symbol=value]...</p>
-<p>Load the specified kernel modules into the kernel</p>
 </dd>
 <dt><strong><a name="install" class="item"><strong>install</strong></a></strong></dt>
 
@@ -558,24 +639,18 @@ iproute { add | del | change | append | replace | monitor } ROUTE
 <tr><td><td>[[i|o]seq] [[i|o]key KEY] [[i|o]csum]
 <tr><td><td>[ttl TTL] [tos TOS] [[no]pmtudisc] [dev PHYS_DEV]</table></p>
 </dd>
-<dt><strong><a name="kill" class="item"><strong>kill</strong></a></strong></dt>
+<dt><strong><a name="kbd_mode" class="item"><strong>kbd_mode</strong></a></strong></dt>
 
 <dd>
-<p>kill [-l] [-SIG] PID...</p>
-<p>Send a signal (default: TERM) to given PIDs</p>
+<p>kbd_mode [-a|k|s|u] [-C TTY]</p>
+<p>Report or set the keyboard mode</p>
 <p>Options:</p>
 <pre>
-        -l      List all signal names and numbers</pre>
-</dd>
-<dt><strong><a name="killall" class="item"><strong>killall</strong></a></strong></dt>
-
-<dd>
-<p>killall [-l] [-q] [-SIG] PROCESS_NAME...</p>
-<p>Send a signal (default: TERM) to given processes</p>
-<p>Options:</p>
-<pre>
-        -l      List all signal names and numbers
-        -q      Don't complain if no processes were killed</pre>
+        -a      Default (ASCII)
+        -k      Medium-raw (keyboard)
+        -s      Raw (scancode)
+        -u      Unicode (utf-8)
+        -C TTY  Affect TTY instead of /dev/tty</pre>
 </dd>
 <dt><strong><a name="less" class="item"><strong>less</strong></a></strong></dt>
 
@@ -591,19 +666,6 @@ iproute { add | del | change | append | replace | monitor } ROUTE
         -I      Ignore case in all searches
         -~      Suppress ~s displayed past the end of the file</pre>
 </dd>
-<dt><strong><a name="ln" class="item"><strong>ln</strong></a></strong></dt>
-
-<dd>
-<p>ln [OPTIONS] TARGET... LINK|DIR</p>
-<p>Create a link LINK or DIR/TARGET to the specified TARGET(s)</p>
-<p>Options:</p>
-<pre>
-        -s      Make symlinks instead of hardlinks
-        -f      Remove existing destinations
-        -n      Don't dereference symlinks - treat like normal file
-        -b      Make a backup of the target (if exists) before link operation
-        -S suf  Use suffix instead of ~ when making backup files</pre>
-</dd>
 <dt><strong><a name="ls" class="item"><strong>ls</strong></a></strong></dt>
 
 <dd>
@@ -616,6 +678,7 @@ iproute { add | del | change | append | replace | monitor } ROUTE
         -a      Don't hide entries starting with .
         -C      List by columns
         -c      With -l: sort by ctime
+        --color[={always,never,auto}]   Control coloring
         -d      List directory entries instead of contents
         -e      List full date and time
         -F      Append indicator (one of */=@|) to entries
@@ -637,12 +700,6 @@ iproute { add | del | change | append | replace | monitor } ROUTE
         -X      Sort by extension
         -h      List sizes in human readable format (1K 243M 2G)</pre>
 </dd>
-<dt><strong><a name="lsmod" class="item"><strong>lsmod</strong></a></strong></dt>
-
-<dd>
-<p>lsmod</p>
-<p>List the currently loaded kernel modules</p>
-</dd>
 <dt><strong><a name="md5sum" class="item"><strong>md5sum</strong></a></strong></dt>
 
 <dd>
@@ -655,27 +712,11 @@ iproute { add | del | change | append | replace | monitor } ROUTE
         -s      Don't output anything, status code shows success
         -w      Warn about improperly formatted checksum lines</pre>
 </dd>
-<dt><strong><a name="mkdir" class="item"><strong>mkdir</strong></a></strong></dt>
+<dt><strong><a name="more" class="item"><strong>more</strong></a></strong></dt>
 
 <dd>
-<p>mkdir [OPTIONS] DIRECTORY...</p>
-<p>Create DIRECTORY</p>
-<p>Options:</p>
-<pre>
-        -m      Mode
-        -p      No error if exists; make parent directories as needed</pre>
-</dd>
-<dt><strong><a name="modprobe" class="item"><strong>modprobe</strong></a></strong></dt>
-
-<dd>
-<p>modprobe [-nqrsv] MODULE [symbol=value]...</p>
-<p>Options:</p>
-<pre>
-        -n      Dry run
-        -q      Quiet
-        -r      Remove module (stacks) or do autoclean
-        -s      Report via syslog instead of stderr
-        -v      Verbose</pre>
+<p>more [FILE]...</p>
+<p>View FILE (or stdin) one screenful at a time</p>
 </dd>
 <dt><strong><a name="mount" class="item"><strong>mount</strong></a></strong></dt>
 
@@ -710,17 +751,6 @@ iproute { add | del | change | append | replace | monitor } ROUTE
         ro/rw           Same as -r/-w</pre>
 <p>There are filesystem-specific -o flags.</p>
 </dd>
-<dt><strong><a name="mv" class="item"><strong>mv</strong></a></strong></dt>
-
-<dd>
-<p>mv [OPTIONS] SOURCE DEST
-or: mv [OPTIONS] SOURCE... DIRECTORY</p>
-<p>Rename SOURCE to DEST, or move SOURCE(s) to DIRECTORY</p>
-<p>Options:</p>
-<pre>
-        -f      Don't prompt before overwriting
-        -i      Interactive, prompt before overwrite</pre>
-</dd>
 <dt><strong><a name="netstat" class="item"><strong>netstat</strong></a></strong></dt>
 
 <dd>
@@ -740,43 +770,28 @@ or: mv [OPTIONS] SOURCE... DIRECTORY</p>
         -W      Display with no column truncation
         -p      Display PID/Program name for sockets</pre>
 </dd>
-<dt><strong><a name="ping" class="item"><strong>ping</strong></a></strong></dt>
+<dt><strong><a name="nohup" class="item"><strong>nohup</strong></a></strong></dt>
 
 <dd>
-<p>ping [OPTIONS] HOST</p>
-<p>Send ICMP ECHO_REQUEST packets to network hosts</p>
+<p>nohup PROG ARGS</p>
+<p>Run PROG immune to hangups, with output to a non-tty</p>
+</dd>
+<dt><strong><a name="nslookup" class="item"><strong>nslookup</strong></a></strong></dt>
+
+<dd>
+<p>nslookup [HOST] [SERVER]</p>
+<p>Query the nameserver for the IP address of the given HOST
+optionally using a specified DNS server</p>
+</dd>
+<dt><strong><a name="pidof" class="item"><strong>pidof</strong></a></strong></dt>
+
+<dd>
+<p>pidof [OPTIONS] [NAME]...</p>
+<p>List PIDs of all processes with names that match NAMEs</p>
 <p>Options:</p>
 <pre>
-        -4, -6          Force IP or IPv6 name resolution
-        -c CNT          Send only CNT pings
-        -s SIZE         Send SIZE data bytes in packets (default:56)
-        -I IFACE/IP     Use interface or IP address as source
-        -W SEC          Seconds to wait for the first response (default:10)
-                        (after all -c CNT packets are sent)
-        -w SEC          Seconds until ping exits (default:infinite)
-                        (can exit earlier with -c CNT)
-        -q              Quiet, only displays output at start
-                        and when finished</pre>
-</dd>
-<dt><strong><a name="ping6" class="item"><strong>ping6</strong></a></strong></dt>
-
-<dd>
-<p>ping6 [OPTIONS] HOST</p>
-<p>Send ICMP ECHO_REQUEST packets to network hosts</p>
-<p>Options:</p>
-<pre>
-        -c CNT          Send only CNT pings
-        -s SIZE         Send SIZE data bytes in packets (default:56)
-        -I IFACE/IP     Use interface or IP address as source
-        -q              Quiet, only displays output at start
-                        and when finished</pre>
-</dd>
-<dt><strong><a name="printf" class="item"><strong>printf</strong></a></strong></dt>
-
-<dd>
-<p>printf FORMAT [ARGUMENT]...</p>
-<p>Format and print ARGUMENT(s) according to FORMAT,
-where FORMAT controls the output exactly as in C printf</p>
+        -o PID  Omit given pid
+                Use %PPID to omit pid of pidof's parent</pre>
 </dd>
 <dt><strong><a name="ps" class="item"><strong>ps</strong></a></strong></dt>
 
@@ -787,42 +802,48 @@ where FORMAT controls the output exactly as in C printf</p>
 <pre>
         w       Wide output</pre>
 </dd>
+<dt><strong><a name="pscan" class="item"><strong>pscan</strong></a></strong></dt>
+
+<dd>
+<p>pscan [-cb] [-p MIN_PORT] [-P MAX_PORT] [-t TIMEOUT] [-T MIN_RTT] HOST</p>
+<p>Scan a host, print all open ports</p>
+<p>Options:</p>
+<pre>
+        -c      Show closed ports too
+        -b      Show blocked ports too
+        -p      Scan from this port (default 1)
+        -P      Scan up to this port (default 1024)
+        -t      Timeout (default 5000 ms)
+        -T      Minimum rtt (default 5 ms, increase for congested hosts)</pre>
+</dd>
 <dt><strong><a name="pwd" class="item"><strong>pwd</strong></a></strong></dt>
 
 <dd>
 <p>pwd</p>
 <p>Print the full filename of the current working directory</p>
 </dd>
-<dt><strong><a name="rm" class="item"><strong>rm</strong></a></strong></dt>
+<dt><strong><a name="readlink" class="item"><strong>readlink</strong></a></strong></dt>
 
 <dd>
-<p>rm [OPTIONS] FILE...</p>
-<p>Remove (unlink) FILEs</p>
+<p>readlink [-fnv] FILE</p>
+<p>Display the value of a symlink</p>
 <p>Options:</p>
 <pre>
-        -i      Always prompt before removing
-        -f      Never prompt
-        -R,-r   Recurse</pre>
+        -f      Canonicalize by following all symlinks
+        -n      Don't add newline
+        -v      Verbose</pre>
 </dd>
-<dt><strong><a name="rmdir" class="item"><strong>rmdir</strong></a></strong></dt>
+<dt><strong><a name="realpath" class="item"><strong>realpath</strong></a></strong></dt>
 
 <dd>
-<p>rmdir [OPTIONS] DIRECTORY...</p>
-<p>Remove DIRECTORY if it is empty</p>
-<p>Options:</p>
-<pre>
-        -p      Include parents</pre>
+<p>realpath FILE...</p>
+<p>Return the absolute pathnames of given FILE</p>
 </dd>
-<dt><strong><a name="rmmod" class="item"><strong>rmmod</strong></a></strong></dt>
+<dt><strong><a name="reset" class="item"><strong>reset</strong></a></strong></dt>
 
 <dd>
-<p>rmmod [OPTIONS] [MODULE]...</p>
-<p>Unload the specified kernel modules from the kernel</p>
-<p>Options:</p>
-<pre>
-        -w      Wait until the module is no longer used
-        -f      Force unloading
-        -a      Remove all unused modules (recursively)</pre>
+<p>reset</p>
+<p>Reset the screen</p>
 </dd>
 <dt><strong><a name="route" class="item"><strong>route</strong></a></strong></dt>
 
@@ -833,7 +854,7 @@ where FORMAT controls the output exactly as in C printf</p>
 <pre>
         -n      Don't resolve names
         -e      Display other/more information
-        -A inet{6}      Select address family</pre>
+        -A inet Select address family</pre>
 </dd>
 <dt><strong><a name="sed" class="item"><strong>sed</strong></a></strong></dt>
 
@@ -849,6 +870,41 @@ where FORMAT controls the output exactly as in C printf</p>
 <p>If no -e or -f, the first non-option argument is the sed command string.
 Remaining arguments are input files (stdin if none).</p>
 </dd>
+<dt><strong><a name="setconsole" class="item"><strong>setconsole</strong></a></strong></dt>
+
+<dd>
+<p>setconsole [-r|--reset] [DEVICE]</p>
+<p>Redirect system console output to DEVICE (default: /dev/tty)</p>
+<p>Options:</p>
+<pre>
+        -r      Reset output to /dev/console</pre>
+</dd>
+<dt><strong><a name="setkeycodes" class="item"><strong>setkeycodes</strong></a></strong></dt>
+
+<dd>
+<p>setkeycodes SCANCODE KEYCODE...</p>
+<p>Set entries into the kernel's scancode-to-keycode map,
+allowing unusual keyboards to generate usable keycodes.</p>
+<p>SCANCODE may be either xx or e0xx (hexadecimal),
+and KEYCODE is given in decimal.</p>
+</dd>
+<dt><strong><a name="setlogcons" class="item"><strong>setlogcons</strong></a></strong></dt>
+
+<dd>
+<p>setlogcons N</p>
+<p>Redirect the kernel output to console N (0 for current)</p>
+</dd>
+<dt><strong><a name="showkey" class="item"><strong>showkey</strong></a></strong></dt>
+
+<dd>
+<p>showkey [-a | -k | -s]</p>
+<p>Show keys pressed</p>
+<p>Options:</p>
+<pre>
+        -a      Display decimal/octal/hex values of the keys
+        -k      Display interpreted keycodes (default)
+        -s      Display raw scan-codes</pre>
+</dd>
 <dt><strong><a name="sleep" class="item"><strong>sleep</strong></a></strong></dt>
 
 <dd>
@@ -856,25 +912,116 @@ Remaining arguments are input files (stdin if none).</p>
 <p>Pause for a time equal to the total of the args given, where each arg can
 have an optional suffix of (s)econds, (m)inutes, (h)ours, or (d)ays</p>
 </dd>
-<dt><strong><a name="su" class="item"><strong>su</strong></a></strong></dt>
+<dt><strong><a name="sort" class="item"><strong>sort</strong></a></strong></dt>
 
 <dd>
-<p>su [OPTIONS] [-] [USERNAME]</p>
-<p>Change user id or become root</p>
+<p>sort [-nrugMcszbdfimSTokt] [-o FILE] [-k start[.offset][opts][,end[.offset][opts]] [-t CHAR] [FILE]...</p>
+<p>Sort lines of text</p>
 <p>Options:</p>
 <pre>
-        -p,-m   Preserve environment
-        -c CMD  Command to pass to 'sh -c'
-        -s SH   Shell to use instead of default shell</pre>
+        -b      Ignore leading blanks
+        -c      Check whether input is sorted
+        -d      Dictionary order (blank or alphanumeric only)
+        -f      Ignore case
+        -g      General numerical sort
+        -i      Ignore unprintable characters
+        -k      Sort key
+        -M      Sort month
+        -n      Sort numbers
+        -o      Output to file
+        -k      Sort by key
+        -t CHAR Key separator
+        -r      Reverse sort order
+        -s      Stable (don't sort ties alphabetically)
+        -u      Suppress duplicate lines
+        -z      Lines are terminated by NUL, not newline
+        -mST    Ignored for GNU compatibility</pre>
 </dd>
-<dt><strong><a name="sulogin" class="item"><strong>sulogin</strong></a></strong></dt>
+<dt><strong><a name="start_stop_daemon" class="item"><strong>start-stop-daemon</strong></a></strong></dt>
 
 <dd>
-<p>sulogin [-t N] [TTY]</p>
-<p>Single user login</p>
+<p>start-stop-daemon [OPTIONS] [-S|-K] ... [-- ARGS...]</p>
+<p>Search for matching processes, and then
+-K: stop all matching processes.
+-S: start a process unless a matching process is found.</p>
+<p>Process matching:</p>
+<pre>
+        -u,--user USERNAME|UID  Match only this user's processes
+        -n,--name NAME          Match processes with NAME
+                                in comm field in /proc/PID/stat
+        -x,--exec EXECUTABLE    Match processes with this command
+                                in /proc/PID/cmdline
+        -p,--pidfile FILE       Match a process with PID from the file
+        All specified conditions must match
+-S only:
+        -x,--exec EXECUTABLE    Program to run
+        -a,--startas NAME       Zeroth argument
+        -b,--background         Background
+        -N,--nicelevel N        Change nice level
+        -c,--chuid USER[:[GRP]] Change to user/group
+        -m,--make-pidfile       Write PID to the pidfile specified by -p
+-K only:
+        -s,--signal SIG         Signal to send
+        -t,--test               Match only, exit with 0 if a process is found
+Other:</pre>
+<pre>
+        -o,--oknodo             Exit with status 0 if nothing is done
+        -v,--verbose            Verbose
+        -q,--quiet              Quiet</pre>
+</dd>
+<dt><strong><a name="stat" class="item"><strong>stat</strong></a></strong></dt>
+
+<dd>
+<p>stat [OPTIONS] FILE...</p>
+<p>Display file (default) or filesystem status</p>
 <p>Options:</p>
 <pre>
-        -t N    Timeout</pre>
+        -c fmt  Use the specified format
+        -f      Display filesystem status
+        -L      Follow links
+        -t      Display info in terse form</pre>
+<p>Valid format sequences for files:</p>
+<pre>
+ %a     Access rights in octal
+ %A     Access rights in human readable form
+ %b     Number of blocks allocated (see %B)
+ %B     The size in bytes of each block reported by %b
+ %d     Device number in decimal
+ %D     Device number in hex
+ %f     Raw mode in hex
+ %F     File type
+ %g     Group ID of owner
+ %G     Group name of owner
+ %h     Number of hard links
+ %i     Inode number
+ %n     File name
+ %N     File name, with -&gt; TARGET if symlink
+ %o     I/O block size
+ %s     Total size, in bytes
+ %t     Major device type in hex
+ %T     Minor device type in hex
+ %u     User ID of owner
+ %U     User name of owner
+ %x     Time of last access
+ %X     Time of last access as seconds since Epoch
+ %y     Time of last modification
+ %Y     Time of last modification as seconds since Epoch
+ %z     Time of last change
+ %Z     Time of last change as seconds since Epoch</pre>
+<p>Valid format sequences for file systems:</p>
+<pre>
+ %a     Free blocks available to non-superuser
+ %b     Total data blocks in file system
+ %c     Total file nodes in file system
+ %d     Free file nodes in file system
+ %f     Free blocks in file system
+ %i     File System ID in hex
+ %l     Maximum length of filenames
+ %n     File name
+ %s     Block size (for faster transfer)
+ %S     Fundamental block size (for block counts)
+ %t     Type in hex
+ %T     Type in human readable form</pre>
 </dd>
 <dt><strong><a name="sum" class="item"><strong>sum</strong></a></strong></dt>
 
@@ -907,7 +1054,7 @@ in the file. N bytes may be suffixed by k (x1024), b (x512), or m (1024^2).</p>
 <dt><strong><a name="tar" class="item"><strong>tar</strong></a></strong></dt>
 
 <dd>
-<p>tar -[cxtvO] [-X FILE] [-f TARFILE] [-C DIR] [FILE]...</p>
+<p>tar -[cxtzjaZvO] [-X FILE] [-f TARFILE] [-C DIR] [FILE]...</p>
 <p>Create, extract, or list files from a tar file</p>
 <p>Options:</p>
 <pre>
@@ -915,23 +1062,45 @@ in the file. N bytes may be suffixed by k (x1024), b (x512), or m (1024^2).</p>
         x       Extract
         t       List
 Archive format selection:</pre>
-<p>File selection:</p>
+<pre>
+        z       Filter the archive through gzip
+        j       Filter the archive through bzip2
+        a       Filter the archive through lzma
+        Z       Filter the archive through compress
+File selection:</pre>
 <pre>
         f       Name of TARFILE or &quot;-&quot; for stdin
         O       Extract to stdout
+        exclude File to exclude
         X       File with names to exclude
         C       Change to DIR before operation
         v       Verbose</pre>
 </dd>
-<dt><strong><a name="telnet" class="item"><strong>telnet</strong></a></strong></dt>
+<dt><strong><a name="tee" class="item"><strong>tee</strong></a></strong></dt>
 
 <dd>
-<p>telnet [-a] [-l USER] HOST [PORT]</p>
-<p>Connect to telnet server</p>
+<p>tee [OPTIONS] [FILE]...</p>
+<p>Copy stdin to each FILE, and also to stdout</p>
 <p>Options:</p>
 <pre>
-        -a      Automatic login with $USER variable
-        -l USER Automatic login as USER</pre>
+        -a      Append to the given FILEs, don't overwrite
+        -i      Ignore interrupt signals (SIGINT)</pre>
+</dd>
+<dt><strong><a name="test" class="item"><strong>test</strong></a></strong></dt>
+
+<dd>
+<p>test EXPRESSION ]</p>
+<p>Check file types, compare values etc. Return a 0/1 exit code
+depending on logical value of EXPRESSION</p>
+</dd>
+<dt><strong><a name="time" class="item"><strong>time</strong></a></strong></dt>
+
+<dd>
+<p>time [OPTIONS] PROG ARGS</p>
+<p>Run PROG, display resource usage when it exits</p>
+<p>Options:</p>
+<pre>
+        -v      Verbose</pre>
 </dd>
 <dt><strong><a name="top" class="item"><strong>top</strong></a></strong></dt>
 
@@ -950,6 +1119,42 @@ and display a screenful of them.</p>
 <pre>
         -c      Don't create files
         -d DT   Date/time to use</pre>
+</dd>
+<dt><strong><a name="tr" class="item"><strong>tr</strong></a></strong></dt>
+
+<dd>
+<p>tr [-cds] STRING1 [STRING2]</p>
+<p>Translate, squeeze, or delete characters from stdin, writing to stdout</p>
+<p>Options:</p>
+<pre>
+        -c      Take complement of STRING1
+        -d      Delete input characters coded STRING1
+        -s      Squeeze multiple output characters of STRING2 into one character</pre>
+</dd>
+<dt><strong><a name="traceroute" class="item"><strong>traceroute</strong></a></strong></dt>
+
+<dd>
+<p><table cellspacing="0" cellpadding="0"><tr><td>traceroute [-FIldnrv] [-f 1ST_TTL] [-m MAXTTL] [-p PORT] [-q PROBES]
+<tr><td><td>[-s SRC_IP] [-t TOS] [-w WAIT_SEC] [-g GATEWAY] [-i IFACE]
+<tr><td><td>[-z PAUSE_MSEC] HOST [BYTES]</table></p>
+<p>Trace the route to HOST</p>
+<p>Options:</p>
+<pre>
+        -F      Set the don't fragment bit
+        -I      Use ICMP ECHO instead of UDP datagrams
+        -l      Display the TTL value of the returned packet
+        -d      Set SO_DEBUG options to socket
+        -n      Print numeric addresses
+        -r      Bypass routing tables, send directly to HOST
+        -v      Verbose
+        -m      Max time-to-live (max number of hops)
+        -p      Base UDP port number used in probes
+                (default 33434)
+        -q      Number of probes per TTL (default 3)
+        -s      IP address to use as the source address
+        -t      Type-of-service in probe packets (default 0)
+        -w      Time in seconds to wait for a response (default 3)
+        -g      Loose source route gateway (8 max)</pre>
 </dd>
 <dt><strong><a name="true" class="item"><strong>true</strong></a></strong></dt>
 
@@ -976,15 +1181,20 @@ and display a screenful of them.</p>
         -f      Force umount (i.e., unreachable NFS server)
         -d      Free loop device if it has been used</pre>
 </dd>
-<dt><strong><a name="uncompress" class="item"><strong>uncompress</strong></a></strong></dt>
+<dt><strong><a name="uname" class="item"><strong>uname</strong></a></strong></dt>
 
 <dd>
-<p>uncompress [-c] [-f] [FILE]...</p>
-<p>Uncompress .Z file[s]</p>
+<p>uname [-amnrspv]</p>
+<p>Print system information</p>
 <p>Options:</p>
 <pre>
-        -c      Extract to stdout
-        -f      Overwrite an existing file</pre>
+        -a      Print all
+        -m      The machine (hardware) type
+        -n      Hostname
+        -r      OS release
+        -s      OS name (default)
+        -p      Processor type
+        -v      OS version</pre>
 </dd>
 <dt><strong><a name="unix2dos" class="item"><strong>unix2dos</strong></a></strong></dt>
 
@@ -1018,6 +1228,12 @@ When no file is given, use stdin/stdout.</p>
 <p>uptime</p>
 <p>Display the time since the last boot</p>
 </dd>
+<dt><strong><a name="usleep" class="item"><strong>usleep</strong></a></strong></dt>
+
+<dd>
+<p>usleep N</p>
+<p>Pause for N microseconds</p>
+</dd>
 <dt><strong><a name="vi" class="item"><strong>vi</strong></a></strong></dt>
 
 <dd>
@@ -1028,6 +1244,19 @@ When no file is given, use stdin/stdout.</p>
         -c      Initial command to run ($EXINIT also available)
         -R      Read-only
         -H      Short help regarding available features</pre>
+</dd>
+<dt><strong><a name="wc" class="item"><strong>wc</strong></a></strong></dt>
+
+<dd>
+<p>wc [OPTIONS] [FILE]...</p>
+<p>Print line, word, and byte counts for each FILE (or stdin),
+and a total line if more than one FILE is specified</p>
+<p>Options:</p>
+<pre>
+        -c      Print the byte counts
+        -l      Print the newline counts
+        -L      Print the length of the longest line
+        -w      Print the word counts</pre>
 </dd>
 <dt><strong><a name="wget" class="item"><strong>wget</strong></a></strong></dt>
 
@@ -1044,14 +1273,11 @@ When no file is given, use stdin/stdout.</p>
         -U      Adjust 'User-Agent' field
         -Y      Use proxy ('on' or 'off')</pre>
 </dd>
-<dt><strong><a name="who" class="item"><strong>who</strong></a></strong></dt>
+<dt><strong><a name="which" class="item"><strong>which</strong></a></strong></dt>
 
 <dd>
-<p>who [-a]</p>
-<p>Show who is logged on</p>
-<p>Options:</p>
-<pre>
-        -a      show all</pre>
+<p>which [COMMAND]...</p>
+<p>Locate a COMMAND</p>
 </dd>
 <dt><strong><a name="whoami" class="item"><strong>whoami</strong></a></strong></dt>
 

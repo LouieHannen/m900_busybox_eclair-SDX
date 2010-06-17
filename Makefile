@@ -1,7 +1,7 @@
 VERSION = 1
 PATCHLEVEL = 16
-SUBLEVEL = 1
-EXTRAVERSION = _SDX-LouZiffer-v1.01
+SUBLEVEL = 2
+EXTRAVERSION =
 NAME = Unnamed
 
 # *DOCUMENTATION*
@@ -12,9 +12,6 @@ NAME = Unnamed
 
 # Do not print "Entering directory ..."
 MAKEFLAGS += --no-print-directory
-
-# Added by Louie for name res
-LIBRARIES += -lc -lnss_files -lnss_dns -lresolv
 
 # We are using a recursive build, so we need to do a little thinking
 # to get the ordering right.
