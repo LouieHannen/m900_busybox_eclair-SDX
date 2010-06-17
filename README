@@ -9,7 +9,7 @@
 		     http://www.sdx-developers.com/
 
 Release: busybox
-Version: v1.16.1_SDX-LouZiffer-v1.01
+Version: v1.16.2_SDX-LouZiffer-v1.10
 HW Platform: Samsung m900 (Moment)
 SW Platform: Android 2.1 (Eclair)
 Maintainer: LouZiffer (louie@rps.net)
