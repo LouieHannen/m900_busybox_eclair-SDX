@@ -114,17 +114,18 @@ been enabled, more detailed usage information will also be available.</p>
 <h1><a name="commands">COMMANDS</a></h1>
 <p>Currently available applets include:</p>
 <pre>
-        [, [[, arp, ash, awk, basename, bunzip2, bzcat, bzip2, chgrp,
-        chroot, cksum, cp, date, df, diff, dirname, dmesg, dos2unix, du,
-        dumpkmap, echo, egrep, env, expr, false, fgrep, find, free, fuser,
-        grep, gunzip, head, id, ifconfig, install, ip, ipaddr, iplink,
-        iproute, iprule, iptunnel, kbd_mode, less, ls, md5sum, more, mount,
-        netstat, nohup, nslookup, pidof, pipe_progress, ps, pscan, pwd,
-        readlink, realpath, reset, route, sed, setconsole, setkeycodes,
-        setlogcons, showkey, sleep, sort, start-stop-daemon, stat, sum,
-        tail, tar, tee, test, time, top, touch, tr, traceroute, true, tty,
-        umount, uname, unix2dos, unzip, uptime, usleep, vi, wc, wget, which,
-        whoami, zcat</pre>
+        [, [[, arp, ash, awk, basename, bunzip2, bzcat, bzip2, cat, chgrp,
+        chmod, chown, chroot, cksum, cp, cut, date, dd, df, diff, dirname,
+        dmesg, dos2unix, du, dumpkmap, echo, egrep, env, expr, false, fgrep,
+        find, free, fuser, grep, gunzip, gzip, head, id, ifconfig, install,
+        ip, ipaddr, iplink, iproute, iprule, iptunnel, kbd_mode, kill,
+        killall, less, ln, ls, md5sum, mkdir, more, mount, mv, netstat,
+        nohup, nslookup, pidof, ping, pipe_progress, printenv, ps, pscan,
+        pwd, readlink, realpath, reset, rm, route, sed, setconsole,
+        setkeycodes, setlogcons, sh, showkey, sleep, sort,
+        start-stop-daemon, stat, sum, sync, tail, tar, tee, test, time, top,
+        touch, tr, traceroute, true, tty, umount, uname, unix2dos, unzip,
+        uptime, usleep, vi, wc, wget, which, who, whoami, zcat</pre>
 <p>
 </p>
 <hr />
@@ -196,11 +197,43 @@ been enabled, more detailed usage information will also be available.</p>
         -f      Force
         -1..-9  Compression level</pre>
 </dd>
+<dt><strong><a name="cat" class="item"><strong>cat</strong></a></strong></dt>
+
+<dd>
+<p>cat [-u] [FILE]...</p>
+<p>Concatenate FILEs and print them to stdout</p>
+<p>Options:</p>
+<pre>
+        -u      Use unbuffered i/o (ignored)</pre>
+</dd>
 <dt><strong><a name="chgrp" class="item"><strong>chgrp</strong></a></strong></dt>
 
 <dd>
 <p>chgrp [-RhLHP]... GROUP FILE...</p>
 <p>Change the group membership of each FILE to GROUP</p>
+<p>Options:</p>
+<pre>
+        -R      Recurse
+        -h      Affect symlinks instead of symlink targets
+        -L      Traverse all symlinks to directories
+        -H      Traverse symlinks on command line only
+        -P      Don't traverse symlinks (default)</pre>
+</dd>
+<dt><strong><a name="chmod" class="item"><strong>chmod</strong></a></strong></dt>
+
+<dd>
+<p>chmod [-R] MODE[,MODE]... FILE...</p>
+<p>Each MODE is one or more of the letters ugoa, one of the
+symbols +-= and one or more of the letters rwxst</p>
+<p>Options:</p>
+<pre>
+        -R      Recurse</pre>
+</dd>
+<dt><strong><a name="chown" class="item"><strong>chown</strong></a></strong></dt>
+
+<dd>
+<p>chown [-RhLHP]... OWNER[&lt;.|:&gt;[GROUP]] FILE...</p>
+<p>Change the owner and/or group of each FILE to OWNER and/or GROUP</p>
 <p>Options:</p>
 <pre>
         -R      Recurse
@@ -238,6 +271,20 @@ been enabled, more detailed usage information will also be available.</p>
         -i      Prompt before overwrite
         -l,-s   Create (sym)links</pre>
 </dd>
+<dt><strong><a name="cut" class="item"><strong>cut</strong></a></strong></dt>
+
+<dd>
+<p>cut [OPTIONS] [FILE]...</p>
+<p>Print selected fields from each input FILE to stdout</p>
+<p>Options:</p>
+<pre>
+        -b LIST Output only bytes from LIST
+        -c LIST Output only characters from LIST
+        -d CHAR Use CHAR instead of tab as the field delimiter
+        -s      Output only the lines containing delimiter
+        -f N    Print only these fields
+        -n      Ignored</pre>
+</dd>
 <dt><strong><a name="date" class="item"><strong>date</strong></a></strong></dt>
 
 <dd>
@@ -261,6 +308,29 @@ been enabled, more detailed usage information will also be available.</p>
         [YYYY.]MM.DD-hh:mm[:ss]
         YYYY-MM-DD hh:mm[:ss]
         [[[[[YY]YY]MM]DD]hh]mm[.ss]</pre>
+</dd>
+<dt><strong><a name="dd" class="item"><strong>dd</strong></a></strong></dt>
+
+<dd>
+<p><table cellspacing="0" cellpadding="0"><tr><td>dd [if=FILE] [of=FILE] [ibs=N] [obs=N] [bs=N] [count=N] [skip=N]
+<tr><td><td>[seek=N] [conv=notrunc|noerror|sync|fsync]</table></p>
+<p>Copy a file with converting and formatting</p>
+<p>Options:</p>
+<pre>
+        if=FILE         Read from FILE instead of stdin
+        of=FILE         Write to FILE instead of stdout
+        bs=N            Read and write N bytes at a time
+        ibs=N           Read N bytes at a time
+        obs=N           Write N bytes at a time
+        count=N         Copy only N input blocks
+        skip=N          Skip N input blocks
+        seek=N          Skip N output blocks
+        conv=notrunc    Don't truncate output file
+        conv=noerror    Continue after read errors
+        conv=sync       Pad blocks with zeros
+        conv=fsync      Physically write data out before finishing</pre>
+<p>Numbers may be suffixed by c (x1), w (x2), b (x512), kD (x1000), k (x1024),
+MD (x1000000), M (x1048576), GD (x1000000000) or G (x1073741824)</p>
 </dd>
 <dt><strong><a name="df" class="item"><strong>df</strong></a></strong></dt>
 
@@ -517,6 +587,17 @@ default EXPRESSION is '-print'</p>
         -f      Force
         -t      Test file integrity</pre>
 </dd>
+<dt><strong><a name="gzip" class="item"><strong>gzip</strong></a></strong></dt>
+
+<dd>
+<p>gzip [OPTIONS] [FILE]...</p>
+<p>Compress FILEs (or stdin)</p>
+<p>Options:</p>
+<pre>
+        -c      Write to stdout
+        -d      Decompress
+        -f      Force</pre>
+</dd>
 <dt><strong><a name="head" class="item"><strong>head</strong></a></strong></dt>
 
 <dd>
@@ -555,6 +636,7 @@ With more than one FILE, precede each with a header giving the file name.</p>
         [hw ether ADDRESS] [metric NN] [mtu NN]
         [[-]trailers] [[-]arp] [[-]allmulti]
         [multicast] [[-]promisc] [txqueuelen NN] [[-]dynamic]
+        [mem_start NN] [io_addr NN] [irq NN]
         [up|down] ...</pre>
 </dd>
 <dt><strong><a name="install" class="item"><strong>install</strong></a></strong></dt>
@@ -652,6 +734,25 @@ iproute { add | del | change | append | replace | monitor } ROUTE
         -u      Unicode (utf-8)
         -C TTY  Affect TTY instead of /dev/tty</pre>
 </dd>
+<dt><strong><a name="kill" class="item"><strong>kill</strong></a></strong></dt>
+
+<dd>
+<p>kill [-l] [-SIG] PID...</p>
+<p>Send a signal (default: TERM) to given PIDs</p>
+<p>Options:</p>
+<pre>
+        -l      List all signal names and numbers</pre>
+</dd>
+<dt><strong><a name="killall" class="item"><strong>killall</strong></a></strong></dt>
+
+<dd>
+<p>killall [-l] [-q] [-SIG] PROCESS_NAME...</p>
+<p>Send a signal (default: TERM) to given processes</p>
+<p>Options:</p>
+<pre>
+        -l      List all signal names and numbers
+        -q      Don't complain if no processes were killed</pre>
+</dd>
 <dt><strong><a name="less" class="item"><strong>less</strong></a></strong></dt>
 
 <dd>
@@ -665,6 +766,19 @@ iproute { add | del | change | append | replace | monitor } ROUTE
         -N      Prefix line number to each line
         -I      Ignore case in all searches
         -~      Suppress ~s displayed past the end of the file</pre>
+</dd>
+<dt><strong><a name="ln" class="item"><strong>ln</strong></a></strong></dt>
+
+<dd>
+<p>ln [OPTIONS] TARGET... LINK|DIR</p>
+<p>Create a link LINK or DIR/TARGET to the specified TARGET(s)</p>
+<p>Options:</p>
+<pre>
+        -s      Make symlinks instead of hardlinks
+        -f      Remove existing destinations
+        -n      Don't dereference symlinks - treat like normal file
+        -b      Make a backup of the target (if exists) before link operation
+        -S suf  Use suffix instead of ~ when making backup files</pre>
 </dd>
 <dt><strong><a name="ls" class="item"><strong>ls</strong></a></strong></dt>
 
@@ -712,6 +826,16 @@ iproute { add | del | change | append | replace | monitor } ROUTE
         -s      Don't output anything, status code shows success
         -w      Warn about improperly formatted checksum lines</pre>
 </dd>
+<dt><strong><a name="mkdir" class="item"><strong>mkdir</strong></a></strong></dt>
+
+<dd>
+<p>mkdir [OPTIONS] DIRECTORY...</p>
+<p>Create DIRECTORY</p>
+<p>Options:</p>
+<pre>
+        -m      Mode
+        -p      No error if exists; make parent directories as needed</pre>
+</dd>
 <dt><strong><a name="more" class="item"><strong>more</strong></a></strong></dt>
 
 <dd>
@@ -727,7 +851,6 @@ iproute { add | del | change | append | replace | monitor } ROUTE
 <pre>
         -a              Mount all filesystems in fstab
         -f              Dry run
-        -i              Don't run mount helper
         -r              Read-only mount
         -w              Read-write mount (default)
         -t FSTYPE       Filesystem type
@@ -751,10 +874,21 @@ iproute { add | del | change | append | replace | monitor } ROUTE
         ro/rw           Same as -r/-w</pre>
 <p>There are filesystem-specific -o flags.</p>
 </dd>
+<dt><strong><a name="mv" class="item"><strong>mv</strong></a></strong></dt>
+
+<dd>
+<p>mv [OPTIONS] SOURCE DEST
+or: mv [OPTIONS] SOURCE... DIRECTORY</p>
+<p>Rename SOURCE to DEST, or move SOURCE(s) to DIRECTORY</p>
+<p>Options:</p>
+<pre>
+        -f      Don't prompt before overwriting
+        -i      Interactive, prompt before overwrite</pre>
+</dd>
 <dt><strong><a name="netstat" class="item"><strong>netstat</strong></a></strong></dt>
 
 <dd>
-<p>netstat [-laentuwxrWp]</p>
+<p>netstat [-laentuwxrp]</p>
 <p>Display networking information</p>
 <p>Options:</p>
 <pre>
@@ -767,7 +901,6 @@ iproute { add | del | change | append | replace | monitor } ROUTE
         -w      Raw sockets
         -x      Unix sockets
         -r      Display routing table
-        -W      Display with no column truncation
         -p      Display PID/Program name for sockets</pre>
 </dd>
 <dt><strong><a name="nohup" class="item"><strong>nohup</strong></a></strong></dt>
@@ -792,6 +925,31 @@ optionally using a specified DNS server</p>
 <pre>
         -o PID  Omit given pid
                 Use %PPID to omit pid of pidof's parent</pre>
+</dd>
+<dt><strong><a name="ping" class="item"><strong>ping</strong></a></strong></dt>
+
+<dd>
+<p>ping [OPTIONS] HOST</p>
+<p>Send ICMP ECHO_REQUEST packets to network hosts</p>
+<p>Options:</p>
+<pre>
+        -4, -6          Force IP or IPv6 name resolution
+        -c CNT          Send only CNT pings
+        -s SIZE         Send SIZE data bytes in packets (default:56)
+        -I IFACE/IP     Use interface or IP address as source
+        -W SEC          Seconds to wait for the first response (default:10)
+                        (after all -c CNT packets are sent)
+        -w SEC          Seconds until ping exits (default:infinite)
+                        (can exit earlier with -c CNT)
+        -q              Quiet, only displays output at start
+                        and when finished</pre>
+</dd>
+<dt><strong><a name="printenv" class="item"><strong>printenv</strong></a></strong></dt>
+
+<dd>
+<p>printenv [VARIABLE]...</p>
+<p>Print environment VARIABLEs.
+If no VARIABLE specified, print all.</p>
 </dd>
 <dt><strong><a name="ps" class="item"><strong>ps</strong></a></strong></dt>
 
@@ -844,6 +1002,17 @@ optionally using a specified DNS server</p>
 <dd>
 <p>reset</p>
 <p>Reset the screen</p>
+</dd>
+<dt><strong><a name="rm" class="item"><strong>rm</strong></a></strong></dt>
+
+<dd>
+<p>rm [OPTIONS] FILE...</p>
+<p>Remove (unlink) FILEs</p>
+<p>Options:</p>
+<pre>
+        -i      Always prompt before removing
+        -f      Never prompt
+        -R,-r   Recurse</pre>
 </dd>
 <dt><strong><a name="route" class="item"><strong>route</strong></a></strong></dt>
 
@@ -1033,6 +1202,12 @@ Other:</pre>
         -r      Use BSD sum algorithm (1K blocks)
         -s      Use System V sum algorithm (512byte blocks)</pre>
 </dd>
+<dt><strong><a name="sync" class="item"><strong>sync</strong></a></strong></dt>
+
+<dd>
+<p>sync</p>
+<p>Write all buffered blocks to disk</p>
+</dd>
 <dt><strong><a name="tail" class="item"><strong>tail</strong></a></strong></dt>
 
 <dd>
@@ -1054,7 +1229,7 @@ in the file. N bytes may be suffixed by k (x1024), b (x512), or m (1024^2).</p>
 <dt><strong><a name="tar" class="item"><strong>tar</strong></a></strong></dt>
 
 <dd>
-<p>tar -[cxtzjaZvO] [-X FILE] [-f TARFILE] [-C DIR] [FILE]...</p>
+<p>tar -[cxtzjZvO] [-X FILE] [-f TARFILE] [-C DIR] [FILE]...</p>
 <p>Create, extract, or list files from a tar file</p>
 <p>Options:</p>
 <pre>
@@ -1065,7 +1240,6 @@ Archive format selection:</pre>
 <pre>
         z       Filter the archive through gzip
         j       Filter the archive through bzip2
-        a       Filter the archive through lzma
         Z       Filter the archive through compress
 File selection:</pre>
 <pre>
@@ -1175,7 +1349,6 @@ and display a screenful of them.</p>
 <p>Unmount file systems</p>
 <p>Options:</p>
 <pre>
-        -a      Unmount all file systems
         -r      Try to remount devices as read-only if mount is busy
         -l      Lazy umount (detach filesystem)
         -f      Force umount (i.e., unreachable NFS server)
@@ -1278,6 +1451,15 @@ and a total line if more than one FILE is specified</p>
 <dd>
 <p>which [COMMAND]...</p>
 <p>Locate a COMMAND</p>
+</dd>
+<dt><strong><a name="who" class="item"><strong>who</strong></a></strong></dt>
+
+<dd>
+<p>who [-a]</p>
+<p>Show who is logged on</p>
+<p>Options:</p>
+<pre>
+        -a      show all</pre>
 </dd>
 <dt><strong><a name="whoami" class="item"><strong>whoami</strong></a></strong></dt>
 
