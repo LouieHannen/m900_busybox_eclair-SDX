@@ -9,14 +9,14 @@
 		     http://www.sdx-developers.com/
 
 Release: busybox
-Version: v1.16.2_SDX-LouZiffer-v1.10
-HW Platform: Samsung m900 (Moment)
+Version: v1.17.1_SDX-LouZiffer-v2.00
+HW Platform: Multiplatform for ARM Processor
 SW Platform: Android 2.1 (Eclair)
 Maintainer: LouZiffer (louie@rps.net)
 Credit: Busybox team for their code. joeykrim and speedrabbit for original 
 base config. SDX Developers for being awesome.
 
-Description: Busybox implementation for the Samsung Moment running Android 2.1.
+Description: Busybox implementation for ARM Processor Phones running Android 2.1.
 For full feature list see:
 http://forum.sdx-developers.com/android-2-1-development/(source)-sdx-busybox-for-android-2-1/
 
@@ -24,7 +24,7 @@ Notes
 -----
 - .config_standard is for use in standard boot mode.
 - .config_recovery is for use in recovery boot mode.
-- YOU MUST CROSS-COMPILE THIS CODE FOR IT TO WORK PROPERLY ON THE MOMENT.
+- YOU MUST CROSS-COMPILE THIS CODE FOR IT TO WORK PROPERLY.
   Please make note of the toolchain location in the .config files and alter 
   if needed.
 - DNS will not function without a resolv.conf in /system/etc. Use the sample
