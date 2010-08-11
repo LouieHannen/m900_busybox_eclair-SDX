@@ -1,3 +1,4 @@
+# DO NOT EDIT. This file is generated from Kbuild.src
 # Makefile for busybox
 #
 # Copyright (C) 1999-2005 by Erik Andersen <andersen@codepoet.org>
@@ -5,7 +6,10 @@
 # Licensed under the GPL v2, see the file LICENSE in this tarball.
 
 lib-y:=
+
+
 lib-$(CONFIG_CHVT)		+= chvt.o
+lib-$(CONFIG_FGCONSOLE)		+= fgconsole.o
 lib-$(CONFIG_CLEAR)		+= clear.o
 lib-$(CONFIG_DEALLOCVT)		+= deallocvt.o
 lib-$(CONFIG_DUMPKMAP)		+= dumpkmap.o

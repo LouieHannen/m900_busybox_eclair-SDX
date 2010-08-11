@@ -114,17 +114,18 @@ been enabled, more detailed usage information will also be available.</p>
 <h1><a name="commands">COMMANDS</a></h1>
 <p>Currently available applets include:</p>
 <pre>
-        [, [[, arp, ash, awk, basename, bunzip2, bzcat, bzip2, chgrp,
-        chroot, cksum, cp, cut, date, df, diff, dirname, dmesg, dos2unix,
-        du, dumpkmap, echo, egrep, env, expr, false, fgrep, find, free,
-        fuser, grep, gunzip, head, id, ifconfig, install, ip, ipaddr,
-        iplink, iproute, iprule, iptunnel, kbd_mode, less, ls, lspci, lsusb,
-        md5sum, more, mount, netstat, nohup, nslookup, pidof, pipe_progress,
-        ps, pscan, pwd, readlink, realpath, reset, route, sed, setconsole,
-        setkeycodes, setlogcons, showkey, sleep, sort, start-stop-daemon,
-        stat, sum, tail, tar, tee, test, time, top, touch, tr, traceroute,
-        true, tty, umount, uname, unix2dos, unzip, uptime, usleep, vi, wc,
-        wget, which, whoami, zcat</pre>
+        [, [[, arp, ash, awk, basename, bootchartd, bunzip2, bzcat, bzip2,
+        chgrp, chroot, cksum, cp, cut, date, df, diff, dirname, dmesg,
+        dos2unix, du, dumpkmap, echo, egrep, env, expr, false, fgconsole,
+        fgrep, find, flock, free, fuser, grep, gunzip, head, id, ifconfig,
+        install, ip, ipaddr, iplink, iproute, iprule, iptunnel, kbd_mode,
+        less, ls, md5sum, modinfo, more, mount, netstat, nohup, nslookup,
+        pidof, pipe_progress, ps, pscan, pwd, readlink, realpath, reset,
+        rev, route, sed, setconsole, setkeycodes, setlogcons, showkey,
+        sleep, smemcap, sort, start-stop-daemon, stat, sum, tail, tar, tee,
+        test, time, top, touch, tr, traceroute, true, tty, umount, uname,
+        unix2dos, unxz, unzip, uptime, usleep, vi, wc, wget, which, whoami,
+        xz, xzcat, zcat</pre>
 <p>
 </p>
 <hr />
@@ -168,11 +169,22 @@ been enabled, more detailed usage information will also be available.</p>
 <p>basename FILE [SUFFIX]</p>
 <p>Strip directory path and .SUFFIX from FILE</p>
 </dd>
+<dt><strong><a name="bootchartd" class="item"><strong>bootchartd</strong></a></strong></dt>
+
+<dd>
+<p>bootchartd start [PROG ARGS]|stop|init</p>
+<p>Create /var/log/bootchart.tgz with boot chart data</p>
+<p>Options:</p>
+<p>start: start background logging; with PROG, run PROG, then kill logging with USR1
+stop: send USR1 to all bootchartd processes
+init: start background logging; stop when getty/xdm is seen (for init scripts)
+Under PID 1: as init, then exec $bootchart_init, /init, /sbin/init</p>
+</dd>
 <dt><strong><a name="bunzip2" class="item"><strong>bunzip2</strong></a></strong></dt>
 
 <dd>
 <p>bunzip2 [OPTIONS] [FILE]...</p>
-<p>Uncompress FILEs (or stdin)</p>
+<p>Decompress FILEs (or stdin)</p>
 <p>Options:</p>
 <pre>
         -c      Write to stdout
@@ -182,7 +194,7 @@ been enabled, more detailed usage information will also be available.</p>
 
 <dd>
 <p>bzcat FILE</p>
-<p>Uncompress to stdout</p>
+<p>Decompress to stdout</p>
 </dd>
 <dt><strong><a name="bzip2" class="item"><strong>bzip2</strong></a></strong></dt>
 
@@ -191,10 +203,10 @@ been enabled, more detailed usage information will also be available.</p>
 <p>Compress FILEs (or stdin) with bzip2 algorithm</p>
 <p>Options:</p>
 <pre>
-        -c      Write to stdout
+        -1..9   Compression level
         -d      Decompress
-        -f      Force
-        -1..-9  Compression level</pre>
+        -c      Write to stdout
+        -f      Force</pre>
 </dd>
 <dt><strong><a name="chgrp" class="item"><strong>chgrp</strong></a></strong></dt>
 
@@ -234,7 +246,7 @@ been enabled, more detailed usage information will also be available.</p>
         -L      Follow all symlinks
         -H      Follow symlinks on command line
         -p      Preserve file attributes if possible
-        -f      Force overwrite
+        -f      Overwrite
         -i      Prompt before overwrite
         -l,-s   Create (sym)links</pre>
 </dd>
@@ -377,8 +389,8 @@ Disk space is printed in units of 1024 bytes.</p>
 <p>Options:</p>
 <pre>
         -n      Suppress trailing newline
-        -e      Interpret backslash-escaped characters (i.e., \t=tab)
-        -E      Disable interpretation of backslash-escaped characters</pre>
+        -e      Interpret backslash escapes (i.e., \t=tab)
+        -E      Don't interpret backslash escapes (default)</pre>
 </dd>
 <dt><strong><a name="env" class="item"><strong>env</strong></a></strong></dt>
 
@@ -432,6 +444,12 @@ of characters matched or 0.</p>
 <p>false</p>
 <p>Return an exit code of FALSE (1)</p>
 </dd>
+<dt><strong><a name="fgconsole" class="item"><strong>fgconsole</strong></a></strong></dt>
+
+<dd>
+<p>fgconsole</p>
+<p>Get active console</p>
+</dd>
 <dt><strong><a name="find" class="item"><strong>find</strong></a></strong></dt>
 
 <dd>
@@ -472,6 +490,18 @@ default EXPRESSION is '-print'</p>
         -delete         Delete files, turns on -depth option
         (EXPR)          Group an expression</pre>
 </dd>
+<dt><strong><a name="flock" class="item"><strong>flock</strong></a></strong></dt>
+
+<dd>
+<p>flock [-sxun] FD|{FILE [-c] PROG ARGS}</p>
+<p>[Un]lock file descriptor, or lock FILE, run PROG</p>
+<p>Options:</p>
+<pre>
+        -s      Shared lock
+        -x      Exclusive lock (default)
+        -u      Unlock FD
+        -n      Fail rather than wait</pre>
+</dd>
 <dt><strong><a name="free" class="item"><strong>free</strong></a></strong></dt>
 
 <dd>
@@ -488,14 +518,14 @@ default EXPRESSION is '-print'</p>
         -m      Find processes which use same fs as FILEs
         -4      Search only IPv4 space
         -6      Search only IPv6 space
-        -s      Silent: just exit with 0 if any processes are found
-        -k      Kill found processes (otherwise display PIDs)
-        -SIGNAL Signal to send (default: TERM)</pre>
+        -s      Don't display PIDs
+        -k      Kill found processes
+        -SIGNAL Signal to send (default: KILL)</pre>
 </dd>
 <dt><strong><a name="grep" class="item"><strong>grep</strong></a></strong></dt>
 
 <dd>
-<p>grep [-HhnlLoqvsriFE] [-m N] [-A/B/C N] PATTERN/-e PATTERN.../-f FILE [FILE]...</p>
+<p>grep [-HhnlLoqvsriwFE] [-m N] [-A/B/C N] PATTERN/-e PATTERN.../-f FILE [FILE]...</p>
 <p>Search for PATTERN in FILEs (or stdin)</p>
 <p>Options:</p>
 <pre>
@@ -511,6 +541,7 @@ default EXPRESSION is '-print'</p>
         -s      Suppress open and read errors
         -r      Recurse
         -i      Ignore case
+        -w      Match whole words only
         -F      PATTERN is a literal (not regexp)
         -E      PATTERN is an extended regexp
         -m N    Match up to N times per file
@@ -524,7 +555,7 @@ default EXPRESSION is '-print'</p>
 
 <dd>
 <p>gunzip [OPTIONS] [FILE]...</p>
-<p>Uncompress FILEs (or stdin)</p>
+<p>Decompress FILEs (or stdin)</p>
 <p>Options:</p>
 <pre>
         -c      Write to stdout
@@ -536,13 +567,14 @@ default EXPRESSION is '-print'</p>
 <dd>
 <p>head [OPTIONS] [FILE]...</p>
 <p>Print first 10 lines of each FILE (or stdin) to stdout.
-With more than one FILE, precede each with a header giving the file name.</p>
+With more than one FILE, precede each with a filename header.</p>
 <p>Options:</p>
 <pre>
-        -n N    Print first N lines instead of first 10
-        -c N    Output the first N bytes
-        -q      Never output headers giving file names
-        -v      Always output headers giving file names</pre>
+        -n N[kbm]       Print first N lines
+        -c N[kbm]       Print first N bytes
+        -q              Never print headers
+        -v              Always print headers</pre>
+<p>N may be suffixed by k (x1024), b (x512), or m (x1024^2).</p>
 </dd>
 <dt><strong><a name="id" class="item"><strong>id</strong></a></strong></dt>
 
@@ -714,15 +746,6 @@ iproute { add | del | change | append | replace | monitor } ROUTE
         -X      Sort by extension
         -h      List sizes in human readable format (1K 243M 2G)</pre>
 </dd>
-<dt><strong><a name="lspci" class="item"><strong>lspci</strong></a></strong></dt>
-
-<dd>
-<p>lspci [-mk]</p>
-<p>List all PCI devices</p>
-<pre>
-        -m      Parseable output
-        -k      Show driver</pre>
-</dd>
 <dt><strong><a name="md5sum" class="item"><strong>md5sum</strong></a></strong></dt>
 
 <dd>
@@ -734,6 +757,19 @@ iproute { add | del | change | append | replace | monitor } ROUTE
         -c      Check sums against given list
         -s      Don't output anything, status code shows success
         -w      Warn about improperly formatted checksum lines</pre>
+</dd>
+<dt><strong><a name="modinfo" class="item"><strong>modinfo</strong></a></strong></dt>
+
+<dd>
+<p>modinfo [-adlp0] [-F keyword] MODULE</p>
+<p>Options:</p>
+<pre>
+        -a              Shortcut for '-F author'
+        -d              Shortcut for '-F description'
+        -l              Shortcut for '-F license'
+        -p              Shortcut for '-F parm'
+        -F keyword      Keyword to look for
+        -0              Separate output with NULs</pre>
 </dd>
 <dt><strong><a name="more" class="item"><strong>more</strong></a></strong></dt>
 
@@ -820,7 +856,7 @@ optionally using a specified DNS server</p>
 
 <dd>
 <p>ps</p>
-<p>Report process status</p>
+<p>Show list of processes</p>
 <p>Options:</p>
 <pre>
         w       Wide output</pre>
@@ -867,6 +903,12 @@ optionally using a specified DNS server</p>
 <dd>
 <p>reset</p>
 <p>Reset the screen</p>
+</dd>
+<dt><strong><a name="rev" class="item"><strong>rev</strong></a></strong></dt>
+
+<dd>
+<p>rev [FILE]...</p>
+<p>Reverse lines of FILE</p>
 </dd>
 <dt><strong><a name="route" class="item"><strong>route</strong></a></strong></dt>
 
@@ -934,6 +976,12 @@ and KEYCODE is given in decimal.</p>
 <p>sleep [N]...</p>
 <p>Pause for a time equal to the total of the args given, where each arg can
 have an optional suffix of (s)econds, (m)inutes, (h)ours, or (d)ays</p>
+</dd>
+<dt><strong><a name="smemcap" class="item"><strong>smemcap</strong></a></strong></dt>
+
+<dd>
+<p>smemcap &gt;SMEMDATA.TAR</p>
+<p>Collect memory usage data in /proc and write it to stdout</p>
 </dd>
 <dt><strong><a name="sort" class="item"><strong>sort</strong></a></strong></dt>
 
@@ -1061,43 +1109,43 @@ Other:</pre>
 <dd>
 <p>tail [OPTIONS] [FILE]...</p>
 <p>Print last 10 lines of each FILE (or stdin) to stdout.
-With more than one FILE, precede each with a header giving the file name.</p>
+With more than one FILE, precede each with a filename header.</p>
 <p>Options:</p>
 <pre>
-        -c N[kbm]       Output last N bytes
-        -n N[kbm]       Print last N lines instead of last 10
-        -f              Output data as the file grows
-        -q              Never output headers giving file names
-        -s SEC          Wait SEC seconds between reads with -f
-        -v              Always output headers giving file names</pre>
-<p>If the first character of N (bytes or lines) is a '+', output begins with
-the Nth item from the start of each file, otherwise, print the last N items
-in the file. N bytes may be suffixed by k (x1024), b (x512), or m (1024^2).</p>
+        -f              Print data as file grows
+        -s SECONDS      Wait SECONDS between reads with -f
+        -n N[kbm]       Print last N lines
+        -c N[kbm]       Print last N bytes
+        -q              Never print headers
+        -v              Always print headers</pre>
+<p>N may be suffixed by k (x1024), b (x512), or m (x1024^2).
+If N starts with a '+', output begins with the Nth item from the start
+of each file, not from the end.</p>
 </dd>
 <dt><strong><a name="tar" class="item"><strong>tar</strong></a></strong></dt>
 
 <dd>
 <p>tar -[cxtzjaZvO] [-X FILE] [-f TARFILE] [-C DIR] [FILE]...</p>
 <p>Create, extract, or list files from a tar file</p>
-<p>Options:</p>
+<p>Operation:</p>
 <pre>
         c       Create
         x       Extract
         t       List
-Archive format selection:</pre>
+Options:</pre>
 <pre>
-        z       Filter the archive through gzip
-        j       Filter the archive through bzip2
-        a       Filter the archive through lzma
-        Z       Filter the archive through compress
-File selection:</pre>
-<pre>
-        f       Name of TARFILE or &quot;-&quot; for stdin
+        f       Name of TARFILE ('-' for stdin/out)
+        C       Change to DIR before operation
+        v       Verbose
+        z       (De)compress using gzip
+        j       (De)compress using bzip2
+        a       (De)compress using lzma
+        Z       (De)compress using compress
         O       Extract to stdout
+        h       Follow symlinks
         exclude File to exclude
         X       File with names to exclude
-        C       Change to DIR before operation
-        v       Verbose</pre>
+        T       File with names to include</pre>
 </dd>
 <dt><strong><a name="tee" class="item"><strong>tee</strong></a></strong></dt>
 
@@ -1230,20 +1278,30 @@ When no file is given, use stdin/stdout.</p>
         -u      dos2unix
         -d      unix2dos</pre>
 </dd>
+<dt><strong><a name="unxz" class="item"><strong>unxz</strong></a></strong></dt>
+
+<dd>
+<p>unxz [OPTIONS] [FILE]...</p>
+<p>Decompress FILE (or stdin)</p>
+<p>Options:</p>
+<pre>
+        -c      Write to stdout
+        -f      Force</pre>
+</dd>
 <dt><strong><a name="unzip" class="item"><strong>unzip</strong></a></strong></dt>
 
 <dd>
-<p>unzip [-opts[modifiers]] file[.zip] [list] [-x xlist] [-d exdir]</p>
+<p>unzip [-opts[modifiers]] FILE[.zip] [LIST] [-x XLIST] [-d DIR]</p>
 <p>Extract files from ZIP archives</p>
 <p>Options:</p>
 <pre>
         -l      List archive contents (with -q for short form)
-        -n      Never overwrite existing files (default)
-        -o      Overwrite files without prompting
+        -n      Never overwrite files (default)
+        -o      Overwrite
         -p      Send output to stdout
         -q      Quiet
-        -x      Exclude these files
-        -d      Extract files into this directory</pre>
+        -x XLST Exclude these files
+        -d DIR  Extract files into DIR</pre>
 </dd>
 <dt><strong><a name="uptime" class="item"><strong>uptime</strong></a></strong></dt>
 
@@ -1284,7 +1342,7 @@ and a total line if more than one FILE is specified</p>
 <dt><strong><a name="wget" class="item"><strong>wget</strong></a></strong></dt>
 
 <dd>
-<p>wget [-csq] [-O file] [-Y on/off] [-P DIR] [-U agent] url</p>
+<p>wget [-csq] [-O FILE] [-Y on/off] [-P DIR] [-U AGENT] URL</p>
 <p>Retrieve files via HTTP or FTP</p>
 <p>Options:</p>
 <pre>
@@ -1292,8 +1350,8 @@ and a total line if more than one FILE is specified</p>
         -c      Continue retrieval of aborted transfer
         -q      Quiet
         -P      Set directory prefix to DIR
-        -O      Save to filename ('-' for stdout)
-        -U      Adjust 'User-Agent' field
+        -O FILE Save to FILE ('-' for stdout)
+        -U STR  Use STR for User-Agent header
         -Y      Use proxy ('on' or 'off')</pre>
 </dd>
 <dt><strong><a name="which" class="item"><strong>which</strong></a></strong></dt>
@@ -1308,11 +1366,28 @@ and a total line if more than one FILE is specified</p>
 <p>whoami</p>
 <p>Print the user name associated with the current effective user id</p>
 </dd>
+<dt><strong><a name="xz" class="item"><strong>xz</strong></a></strong></dt>
+
+<dd>
+<p>xz -d [OPTIONS] [FILE]...</p>
+<p>Decompress FILE (or stdin)</p>
+<p>Options:</p>
+<pre>
+        -d      Decompress
+        -c      Write to stdout
+        -f      Force</pre>
+</dd>
+<dt><strong><a name="xzcat" class="item"><strong>xzcat</strong></a></strong></dt>
+
+<dd>
+<p>xzcat FILE</p>
+<p>Decompress to stdout</p>
+</dd>
 <dt><strong><a name="zcat" class="item"><strong>zcat</strong></a></strong></dt>
 
 <dd>
 <p>zcat FILE</p>
-<p>Uncompress to stdout</p>
+<p>Decompress to stdout</p>
 </dd>
 </dl>
 <p>

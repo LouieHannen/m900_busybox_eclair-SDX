@@ -1,10 +1,15 @@
+# DO NOT EDIT. This file is generated from Kbuild.src
 # Makefile for busybox
 #
 # Copyright (C) 1999-2005 by Erik Andersen <andersen@codepoet.org>
 #
 # Licensed under the GPL v2, see the file LICENSE in this tarball.
 
+libbb/appletlib.o: include/usage_compressed.h
+
 lib-y:=
+
+
 
 lib-y += appletlib.o
 lib-y += ask_confirmation.o
@@ -28,8 +33,6 @@ lib-y += create_icmp_socket.o
 lib-y += default_error_retval.o
 lib-y += device_open.o
 lib-y += dump.o
-lib-y += error_msg.o
-lib-y += error_msg_and_die.o
 lib-y += execable.o
 lib-y += fclose_nonstdin.o
 lib-y += fflush_stdout_and_exit.o
@@ -42,8 +45,8 @@ lib-y += get_last_path_component.o
 lib-y += get_line_from_file.o
 lib-y += getopt32.o
 lib-y += getpty.o
+lib-y += get_volsize.o
 lib-y += herror_msg.o
-lib-y += herror_msg_and_die.o
 lib-y += human_readable.o
 lib-y += inet_common.o
 lib-y += info_msg.o
@@ -67,22 +70,22 @@ lib-y += obscure.o
 lib-y += parse_mode.o
 lib-y += parse_config.o
 lib-y += perror_msg.o
-lib-y += perror_msg_and_die.o
 lib-y += perror_nomsg.o
 lib-y += perror_nomsg_and_die.o
 lib-y += pidfile.o
 lib-y += platform.o
 lib-y += printable.o
+lib-y += printable_string.o
 lib-y += print_flags.o
 lib-y += process_escape_sequence.o
 lib-y += procps.o
 lib-y += progress.o
 lib-y += ptr_to_globals.o
 lib-y += read.o
+lib-y += read_printf.o
 lib-y += read_key.o
 lib-y += recursive_action.o
 lib-y += remove_file.o
-lib-y += restricted_shell.o
 lib-y += run_shell.o
 lib-y += safe_gethostname.o
 lib-y += safe_poll.o
@@ -119,11 +122,13 @@ lib-y += xgethostbyname.o
 lib-y += xreadlink.o
 lib-y += xrealloc_vector.o
 
+lib-$(CONFIG_FEATURE_UTMP) += utmp.o
+
 # A mix of optimizations (why build stuff we know won't be used)
 # and objects which may fail to build (SELinux on selinux-less system)
 lib-$(CONFIG_SELINUX) += selinux_common.o
 lib-$(CONFIG_FEATURE_MTAB_SUPPORT) += mtab.o
-lib-$(CONFIG_FEATURE_ASSUME_UNICODE) += unicode.o
+lib-$(CONFIG_UNICODE_SUPPORT) += unicode.o
 lib-$(CONFIG_FEATURE_CHECK_NAMES) += die_if_bad_username.o
 
 lib-$(CONFIG_LOSETUP) += loop.o

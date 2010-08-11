@@ -1,14 +1,10 @@
+/* DO NOT EDIT. This file is generated from applets.src.h */
 /* vi: set sw=4 ts=4: */
 /*
  * applets.h - a listing of all busybox applets.
  *
  * If you write a new applet, you need to add an entry to this list to make
  * busybox aware of it.
- *
- * It is CRUCIAL that this listing be kept in ascii order, otherwise the binary
- * search lookup contributed by Gaute B Strokkenes stops working. If you value
- * your kneecaps, you'll be sure to *make sure* that any changes made to this
- * file result in the listing remaining in ascii order. You have been warned.
  */
 
 /*
@@ -36,16 +32,16 @@ s     - suid type:
 # define APPLET_NOFORK(name,main,l,s,name2)  name main##_main name2
 
 #elif defined(MAKE_USAGE) && ENABLE_FEATURE_VERBOSE_USAGE
-# define APPLET(name,l,s)                    name##_trivial_usage name##_full_usage "\0"
-# define APPLET_ODDNAME(name,main,l,s,name2) name2##_trivial_usage name2##_full_usage "\0"
-# define APPLET_NOEXEC(name,main,l,s,name2)  name2##_trivial_usage name2##_full_usage "\0"
-# define APPLET_NOFORK(name,main,l,s,name2)  name2##_trivial_usage name2##_full_usage "\0"
+# define APPLET(name,l,s)                    MAKE_USAGE(#name, name##_trivial_usage name##_full_usage)
+# define APPLET_ODDNAME(name,main,l,s,name2) MAKE_USAGE(#name, name2##_trivial_usage name2##_full_usage)
+# define APPLET_NOEXEC(name,main,l,s,name2)  MAKE_USAGE(#name, name2##_trivial_usage name2##_full_usage)
+# define APPLET_NOFORK(name,main,l,s,name2)  MAKE_USAGE(#name, name2##_trivial_usage name2##_full_usage)
 
 #elif defined(MAKE_USAGE) && !ENABLE_FEATURE_VERBOSE_USAGE
-# define APPLET(name,l,s)                    name##_trivial_usage "\0"
-# define APPLET_ODDNAME(name,main,l,s,name2) name2##_trivial_usage "\0"
-# define APPLET_NOEXEC(name,main,l,s,name2)  name2##_trivial_usage "\0"
-# define APPLET_NOFORK(name,main,l,s,name2)  name2##_trivial_usage "\0"
+# define APPLET(name,l,s)                    MAKE_USAGE(#name, name##_trivial_usage)
+# define APPLET_ODDNAME(name,main,l,s,name2) MAKE_USAGE(#name, name2##_trivial_usage)
+# define APPLET_NOEXEC(name,main,l,s,name2)  MAKE_USAGE(#name, name2##_trivial_usage)
+# define APPLET_NOFORK(name,main,l,s,name2)  MAKE_USAGE(#name, name2##_trivial_usage)
 
 #elif defined(MAKE_LINKS)
 # define APPLET(name,l,c)                    LINK l name
@@ -67,6 +63,19 @@ s     - suid type:
 #endif
 
 
+IF_BUNZIP2(APPLET(bunzip2, _BB_DIR_USR_BIN, _BB_SUID_DROP))
+IF_BUNZIP2(APPLET_ODDNAME(bzcat, bunzip2, _BB_DIR_USR_BIN, _BB_SUID_DROP, bzcat))
+IF_FIND(APPLET_NOEXEC(find, find, _BB_DIR_USR_BIN, _BB_SUID_DROP, find))
+IF_GREP(APPLET(grep, _BB_DIR_BIN, _BB_SUID_DROP))
+IF_FEATURE_GREP_EGREP_ALIAS(APPLET_ODDNAME(egrep, grep, _BB_DIR_BIN, _BB_SUID_DROP, egrep))
+IF_FEATURE_GREP_FGREP_ALIAS(APPLET_ODDNAME(fgrep, grep, _BB_DIR_BIN, _BB_SUID_DROP, fgrep))
+IF_XARGS(APPLET_NOEXEC(xargs, xargs, _BB_DIR_USR_BIN, _BB_SUID_DROP, xargs))
+IF_CONSPY(APPLET(conspy, _BB_DIR_BIN, _BB_SUID_DROP))
+IF_UBIATTACH(APPLET_ODDNAME(ubiattach, ubi_attach_detach, _BB_DIR_USR_SBIN, _BB_SUID_DROP, ubiattach))
+IF_UBIDETACH(APPLET_ODDNAME(ubidetach, ubi_attach_detach, _BB_DIR_USR_SBIN, _BB_SUID_DROP, ubidetach))
+IF_MODINFO(APPLET(modinfo, _BB_DIR_SBIN, _BB_SUID_DROP))
+IF_SMEMCAP(APPLET(smemcap, _BB_DIR_USR_BIN, _BB_SUID_DROP))
+IF_REV(APPLET(rev, _BB_DIR_BIN, _BB_SUID_DROP))
 IF_TEST(APPLET_NOFORK([,  test, _BB_DIR_USR_BIN, _BB_SUID_DROP, test))
 IF_TEST(APPLET_NOFORK([[, test, _BB_DIR_USR_BIN, _BB_SUID_DROP, test))
 IF_ACPID(APPLET(acpid, _BB_DIR_SBIN, _BB_SUID_DROP))
@@ -79,13 +88,14 @@ IF_ARPING(APPLET(arping, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_ASH(APPLET(ash, _BB_DIR_BIN, _BB_SUID_DROP))
 IF_AWK(APPLET_NOEXEC(awk, awk, _BB_DIR_USR_BIN, _BB_SUID_DROP, awk))
 IF_BASENAME(APPLET_NOFORK(basename, basename, _BB_DIR_USR_BIN, _BB_SUID_DROP, basename))
+IF_FEATURE_BASH_IS_ASH(APPLET_ODDNAME(bash, ash, _BB_DIR_BIN, _BB_SUID_DROP, bash))
+IF_FEATURE_BASH_IS_HUSH(APPLET_ODDNAME(bash, hush, _BB_DIR_BIN, _BB_SUID_DROP, bash))
 IF_BBCONFIG(APPLET(bbconfig, _BB_DIR_BIN, _BB_SUID_DROP))
 //IF_BBSH(APPLET(bbsh, _BB_DIR_BIN, _BB_SUID_DROP))
 IF_BEEP(APPLET(beep, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_BLKID(APPLET(blkid, _BB_DIR_SBIN, _BB_SUID_DROP))
+IF_BOOTCHARTD(APPLET(bootchartd, _BB_DIR_SBIN, _BB_SUID_DROP))
 IF_BRCTL(APPLET(brctl, _BB_DIR_USR_SBIN, _BB_SUID_DROP))
-IF_BUNZIP2(APPLET(bunzip2, _BB_DIR_USR_BIN, _BB_SUID_DROP))
-IF_BUNZIP2(APPLET_ODDNAME(bzcat, bunzip2, _BB_DIR_USR_BIN, _BB_SUID_DROP, bzcat))
 IF_BZIP2(APPLET(bzip2, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_CAL(APPLET(cal, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_CAT(APPLET_NOFORK(cat, cat, _BB_DIR_BIN, _BB_SUID_DROP, cat))
@@ -139,7 +149,6 @@ IF_DUMPLEASES(APPLET(dumpleases, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 //IF_E2LABEL(APPLET_ODDNAME(e2label, tune2fs, _BB_DIR_SBIN, _BB_SUID_DROP, e2label))
 IF_ECHO(APPLET_NOFORK(echo, echo, _BB_DIR_BIN, _BB_SUID_DROP, echo))
 IF_ED(APPLET(ed, _BB_DIR_BIN, _BB_SUID_DROP))
-IF_FEATURE_GREP_EGREP_ALIAS(APPLET_ODDNAME(egrep, grep, _BB_DIR_BIN, _BB_SUID_DROP, egrep))
 IF_EJECT(APPLET(eject, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_ENV(APPLET_NOEXEC(env, env, _BB_DIR_USR_BIN, _BB_SUID_DROP, env))
 IF_ENVDIR(APPLET_ODDNAME(envdir, chpst, _BB_DIR_USR_BIN, _BB_SUID_DROP, envdir))
@@ -154,13 +163,13 @@ IF_FBSPLASH(APPLET(fbsplash, _BB_DIR_SBIN, _BB_SUID_DROP))
 IF_FDFLUSH(APPLET_ODDNAME(fdflush, freeramdisk, _BB_DIR_BIN, _BB_SUID_DROP, fdflush))
 IF_FDFORMAT(APPLET(fdformat, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_FDISK(APPLET(fdisk, _BB_DIR_SBIN, _BB_SUID_DROP))
-IF_FEATURE_GREP_FGREP_ALIAS(APPLET_ODDNAME(fgrep, grep, _BB_DIR_BIN, _BB_SUID_DROP, fgrep))
-IF_FIND(APPLET_NOEXEC(find, find, _BB_DIR_USR_BIN, _BB_SUID_DROP, find))
+IF_FGCONSOLE(APPLET(fgconsole, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_FINDFS(APPLET(findfs, _BB_DIR_SBIN, _BB_SUID_MAYBE))
 IF_FLASH_ERASEALL(APPLET(flash_eraseall, _BB_DIR_USR_SBIN, _BB_SUID_DROP))
 IF_FLASH_LOCK(APPLET_ODDNAME(flash_lock, flash_lock_unlock, _BB_DIR_USR_SBIN, _BB_SUID_DROP, flash_lock))
 IF_FLASH_UNLOCK(APPLET_ODDNAME(flash_unlock, flash_lock_unlock, _BB_DIR_USR_SBIN, _BB_SUID_DROP, flash_unlock))
 IF_FLASHCP(APPLET(flashcp, _BB_DIR_USR_SBIN, _BB_SUID_DROP))
+IF_FLOCK(APPLET(flock, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_FOLD(APPLET(fold, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_FREE(APPLET(free, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_FREERAMDISK(APPLET(freeramdisk, _BB_DIR_SBIN, _BB_SUID_DROP))
@@ -177,7 +186,6 @@ IF_GETENFORCE(APPLET(getenforce, _BB_DIR_USR_SBIN, _BB_SUID_DROP))
 IF_GETOPT(APPLET(getopt, _BB_DIR_BIN, _BB_SUID_DROP))
 IF_GETSEBOOL(APPLET(getsebool, _BB_DIR_USR_SBIN, _BB_SUID_DROP))
 IF_GETTY(APPLET(getty, _BB_DIR_SBIN, _BB_SUID_DROP))
-IF_GREP(APPLET(grep, _BB_DIR_BIN, _BB_SUID_DROP))
 IF_GUNZIP(APPLET(gunzip, _BB_DIR_BIN, _BB_SUID_DROP))
 IF_GZIP(APPLET(gzip, _BB_DIR_BIN, _BB_SUID_DROP))
 IF_HALT(APPLET(halt, _BB_DIR_SBIN, _BB_SUID_DROP))
@@ -246,9 +254,10 @@ IF_LS(APPLET_NOEXEC(ls, ls, _BB_DIR_BIN, _BB_SUID_DROP, ls))
 IF_LSATTR(APPLET(lsattr, _BB_DIR_BIN, _BB_SUID_DROP))
 IF_LSMOD(APPLET(lsmod, _BB_DIR_SBIN, _BB_SUID_DROP))
 IF_MODPROBE_SMALL(APPLET_ODDNAME(lsmod, modprobe, _BB_DIR_SBIN, _BB_SUID_DROP, modprobe))
-IF_LSPCI(APPLET(lspci, _BB_DIR_SBIN, _BB_SUID_DROP))
-IF_LSUSB(APPLET(lsusb, _BB_DIR_SBIN, _BB_SUID_DROP))
-IF_UNLZMA(APPLET_ODDNAME(lzmacat, unlzma, _BB_DIR_USR_BIN, _BB_SUID_DROP, lzmacat))
+IF_LSPCI(APPLET(lspci, _BB_DIR_USR_BIN, _BB_SUID_DROP))
+IF_LSUSB(APPLET(lsusb, _BB_DIR_USR_BIN, _BB_SUID_DROP))
+IF_UNLZMA(APPLET_ODDNAME(lzcat, unlzma, _BB_DIR_USR_BIN, _BB_SUID_DROP, lzcat))
+IF_LZMA(APPLET_ODDNAME(lzma, unlzma, _BB_DIR_USR_BIN, _BB_SUID_DROP, lzma))
 IF_LZOP(APPLET(lzop, _BB_DIR_BIN, _BB_SUID_DROP))
 IF_LZOP(APPLET_ODDNAME(lzopcat, lzop, _BB_DIR_USR_BIN, _BB_SUID_DROP, lzopcat))
 IF_MAKEDEVS(APPLET(makedevs, _BB_DIR_SBIN, _BB_SUID_DROP))
@@ -320,6 +329,7 @@ IF_RENICE(APPLET(renice, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_RESET(APPLET(reset, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_RESIZE(APPLET(resize, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_RESTORECON(APPLET_ODDNAME(restorecon, setfiles, _BB_DIR_SBIN, _BB_SUID_DROP, restorecon))
+IF_RFKILL(APPLET(rfkill, _BB_DIR_USR_SBIN, _BB_SUID_DROP))
 IF_RM(APPLET_NOFORK(rm, rm, _BB_DIR_BIN, _BB_SUID_DROP, rm))
 IF_RMDIR(APPLET_NOFORK(rmdir, rmdir, _BB_DIR_BIN, _BB_SUID_DROP, rmdir))
 IF_RMMOD(APPLET(rmmod, _BB_DIR_SBIN, _BB_SUID_DROP))
@@ -402,7 +412,7 @@ IF_TRUE(APPLET_NOFORK(true, true, _BB_DIR_BIN, _BB_SUID_DROP, true))
 IF_TTY(APPLET(tty, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_TTYSIZE(APPLET(ttysize, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_TUNCTL(APPLET(tunctl, _BB_DIR_SBIN, _BB_SUID_DROP))
-IF_MKFS_EXT2(APPLET(tune2fs, _BB_DIR_SBIN, _BB_SUID_DROP))
+IF_TUNE2FS(APPLET(tune2fs, _BB_DIR_SBIN, _BB_SUID_DROP))
 IF_UDHCPC(APPLET(udhcpc, _BB_DIR_SBIN, _BB_SUID_DROP))
 IF_UDHCPD(APPLET(udhcpd, _BB_DIR_USR_SBIN, _BB_SUID_DROP))
 IF_UDPSVD(APPLET_ODDNAME(udpsvd, tcpudpsvd, _BB_DIR_USR_BIN, _BB_SUID_DROP, udpsvd))
@@ -412,6 +422,7 @@ IF_UNCOMPRESS(APPLET(uncompress, _BB_DIR_BIN, _BB_SUID_DROP))
 IF_UNEXPAND(APPLET_ODDNAME(unexpand, expand, _BB_DIR_USR_BIN, _BB_SUID_DROP, unexpand))
 IF_UNIQ(APPLET(uniq, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_UNIX2DOS(APPLET_ODDNAME(unix2dos, dos2unix, _BB_DIR_USR_BIN, _BB_SUID_DROP, unix2dos))
+IF_UNXZ(APPLET(unxz, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_UNLZMA(APPLET(unlzma, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_LZOP(APPLET_ODDNAME(unlzop, lzop, _BB_DIR_USR_BIN, _BB_SUID_DROP, unlzop))
 IF_UNZIP(APPLET(unzip, _BB_DIR_USR_BIN, _BB_SUID_DROP))
@@ -431,7 +442,8 @@ IF_WGET(APPLET(wget, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_WHICH(APPLET(which, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_WHO(APPLET(who, _BB_DIR_USR_BIN, _BB_SUID_DROP))
 IF_WHOAMI(APPLET_NOFORK(whoami, whoami, _BB_DIR_USR_BIN, _BB_SUID_DROP, whoami))
-IF_XARGS(APPLET_NOEXEC(xargs, xargs, _BB_DIR_USR_BIN, _BB_SUID_DROP, xargs))
+IF_UNXZ(APPLET_ODDNAME(xzcat, unxz, _BB_DIR_USR_BIN, _BB_SUID_DROP, xzcat))
+IF_XZ(APPLET_ODDNAME(xz, unxz, _BB_DIR_USR_BIN, _BB_SUID_DROP, xz))
 IF_YES(APPLET_NOFORK(yes, yes, _BB_DIR_USR_BIN, _BB_SUID_DROP, yes))
 IF_GUNZIP(APPLET_ODDNAME(zcat, gunzip, _BB_DIR_BIN, _BB_SUID_DROP, zcat))
 IF_ZCIP(APPLET(zcip, _BB_DIR_SBIN, _BB_SUID_DROP))

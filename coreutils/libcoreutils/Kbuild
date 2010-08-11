@@ -1,3 +1,4 @@
+# DO NOT EDIT. This file is generated from Kbuild.src
 # Makefile for busybox
 #
 # Copyright (C) 1999-2004 by Erik Andersen <andersen@codepoet.org>
@@ -5,6 +6,8 @@
 # Licensed under the GPL v2 or later, see the file LICENSE in this tarball.
 
 lib-y:=
+
+
 lib-$(CONFIG_MKFIFO)	+= getopt_mk_fifo_nod.o
 lib-$(CONFIG_MKNOD)	+= getopt_mk_fifo_nod.o
 lib-$(CONFIG_INSTALL)	+= cp_mv_stat.o

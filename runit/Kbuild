@@ -1,3 +1,4 @@
+# DO NOT EDIT. This file is generated from Kbuild.src
 # Makefile for busybox
 #
 # Copyright (C) 1999-2005 by Erik Andersen <andersen@codepoet.org>
@@ -5,6 +6,9 @@
 # Licensed under the GPL v2, see the file LICENSE in this tarball.
 
 lib-y:=
+
+
+
 lib-$(CONFIG_RUNSV) += runsv.o runit_lib.o
 lib-$(CONFIG_RUNSVDIR) += runsvdir.o runit_lib.o
 lib-$(CONFIG_SV) += sv.o runit_lib.o

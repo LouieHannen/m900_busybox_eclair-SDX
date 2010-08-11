@@ -1,3 +1,4 @@
+# DO NOT EDIT. This file is generated from Kbuild.src
 # Makefile for busybox
 #
 # Copyright (C) 1999-2004 by Erik Andersen <andersen@codepoet.org>
@@ -33,9 +34,12 @@ DPKG_FILES:= \
 	get_header_tar.o \
 	filter_accept_list_reassign.o
 
+
+
 lib-$(CONFIG_AR)                        += get_header_ar.o unpack_ar_archive.o
 lib-$(CONFIG_BUNZIP2)                   += decompress_bunzip2.o
 lib-$(CONFIG_UNLZMA)                    += decompress_unlzma.o
+lib-$(CONFIG_UNXZ)                      += decompress_unxz.o
 lib-$(CONFIG_CPIO)                      += get_header_cpio.o
 lib-$(CONFIG_DPKG)                      += $(DPKG_FILES)
 lib-$(CONFIG_DPKG_DEB)                  += $(DPKG_FILES)
@@ -49,7 +53,9 @@ lib-$(CONFIG_FEATURE_SEAMLESS_Z)        += open_transformer.o decompress_uncompr
 lib-$(CONFIG_FEATURE_SEAMLESS_GZ)       += open_transformer.o decompress_unzip.o get_header_tar_gz.o
 lib-$(CONFIG_FEATURE_SEAMLESS_BZ2)      += open_transformer.o decompress_bunzip2.o get_header_tar_bz2.o
 lib-$(CONFIG_FEATURE_SEAMLESS_LZMA)     += open_transformer.o decompress_unlzma.o get_header_tar_lzma.o
+lib-$(CONFIG_FEATURE_SEAMLESS_XZ)       += open_transformer.o decompress_unxz.o
 lib-$(CONFIG_FEATURE_COMPRESS_USAGE)    += decompress_bunzip2.o
+lib-$(CONFIG_FEATURE_TAR_TO_COMMAND)    += data_extract_to_command.o
 
 ifneq ($(lib-y),)
 lib-y += $(COMMON_FILES)

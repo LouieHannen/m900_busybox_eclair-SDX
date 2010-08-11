@@ -1,3 +1,4 @@
+# DO NOT EDIT. This file is generated from Kbuild.src
 # Makefile for busybox
 #
 # Copyright (C) 1999-2005 by Erik Andersen <andersen@codepoet.org>
@@ -5,6 +6,10 @@
 # Licensed under the GPL v2, see the file LICENSE in this tarball.
 
 lib-y:=
+
+lib-$(CONFIG_CONSPY) += conspy.o
+lib-$(CONFIG_UBIATTACH)   += ubi_attach_detach.o
+lib-$(CONFIG_UBIDETACH)   += ubi_attach_detach.o
 lib-$(CONFIG_ADJTIMEX)    += adjtimex.o
 lib-$(CONFIG_BBCONFIG)    += bbconfig.o
 lib-$(CONFIG_BEEP)        += beep.o
@@ -34,6 +39,7 @@ lib-$(CONFIG_MOUNTPOINT)  += mountpoint.o
 lib-$(CONFIG_MT)          += mt.o
 lib-$(CONFIG_RAIDAUTORUN) += raidautorun.o
 lib-$(CONFIG_READAHEAD)   += readahead.o
+lib-$(CONFIG_RFKILL)      += rfkill.o
 lib-$(CONFIG_RUNLEVEL)    += runlevel.o
 lib-$(CONFIG_RX)          += rx.o
 lib-$(CONFIG_SETSID)      += setsid.o

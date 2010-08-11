@@ -1,3 +1,4 @@
+# DO NOT EDIT. This file is generated from Kbuild.src
 # Makefile for busybox
 #
 # Copyright (C) 1999-2005 by Erik Andersen <andersen@codepoet.org>
@@ -5,6 +6,8 @@
 # Licensed under the GPL v2, see the file LICENSE in this tarball.
 
 lib-y:=
+
+lib-$(CONFIG_REV) += rev.o
 lib-$(CONFIG_ACPID)             += acpid.o
 lib-$(CONFIG_BLKID)             += blkid.o
 lib-$(CONFIG_DMESG)             += dmesg.o
@@ -13,6 +16,7 @@ lib-$(CONFIG_FDFLUSH)           += freeramdisk.o
 lib-$(CONFIG_FDFORMAT)          += fdformat.o
 lib-$(CONFIG_FDISK)             += fdisk.o
 lib-$(CONFIG_FINDFS)            += findfs.o
+lib-$(CONFIG_FLOCK)             += flock.o
 lib-$(CONFIG_FREERAMDISK)       += freeramdisk.o
 lib-$(CONFIG_FSCK_MINIX)        += fsck_minix.o
 lib-$(CONFIG_GETOPT)            += getopt.o
@@ -41,5 +45,4 @@ lib-$(CONFIG_SCRIPTREPLAY)      += scriptreplay.o
 lib-$(CONFIG_SETARCH)           += setarch.o
 lib-$(CONFIG_SWAPONOFF)         += swaponoff.o
 lib-$(CONFIG_SWITCH_ROOT)       += switch_root.o
-lib-$(CONFIG_MKFS_EXT2)         += tune2fs.o
 lib-$(CONFIG_UMOUNT)            += umount.o

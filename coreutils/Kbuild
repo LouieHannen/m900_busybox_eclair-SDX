@@ -1,3 +1,4 @@
+# DO NOT EDIT. This file is generated from Kbuild.src
 # Makefile for busybox
 #
 # Copyright (C) 1999-2005 by Erik Andersen <andersen@codepoet.org>
@@ -7,22 +8,29 @@
 libs-y			+= libcoreutils/
 
 lib-y:=
-lib-$(CONFIG_BASENAME)  += basename.o
+
+lib-$(CONFIG_BASENAME) += basename.o
+lib-$(CONFIG_CAT)     += cat.o
+lib-$(CONFIG_MORE)    += cat.o # more uses it if stdout isn't a tty
+lib-$(CONFIG_LESS)    += cat.o # less too
+lib-$(CONFIG_CRONTAB) += cat.o # crontab -l
+lib-$(CONFIG_DATE) += date.o
+lib-$(CONFIG_TEST)      += test.o test_ptr_hack.o
+lib-$(CONFIG_ASH)       += test.o test_ptr_hack.o
+lib-$(CONFIG_HUSH)      += test.o test_ptr_hack.o
+lib-$(CONFIG_TR) += tr.o
 lib-$(CONFIG_CAL)       += cal.o
-lib-$(CONFIG_CAT)       += cat.o
-lib-$(CONFIG_MORE)      += cat.o # more uses it if stdout isn't a tty
-lib-$(CONFIG_LESS)      += cat.o # less too
-lib-$(CONFIG_CRONTAB)   += cat.o # crontab -l
 lib-$(CONFIG_CATV)      += catv.o
 lib-$(CONFIG_CHGRP)     += chgrp.o chown.o
 lib-$(CONFIG_CHMOD)     += chmod.o
 lib-$(CONFIG_CHOWN)     += chown.o
+lib-$(CONFIG_ADDUSER)   += chown.o # used by adduser
+lib-$(CONFIG_ADDGROUP)  += chown.o # used by adduser
 lib-$(CONFIG_CHROOT)    += chroot.o
 lib-$(CONFIG_CKSUM)     += cksum.o
 lib-$(CONFIG_COMM)      += comm.o
 lib-$(CONFIG_CP)        += cp.o
 lib-$(CONFIG_CUT)       += cut.o
-lib-$(CONFIG_DATE)      += date.o
 lib-$(CONFIG_DD)        += dd.o
 lib-$(CONFIG_DF)        += df.o
 lib-$(CONFIG_DIRNAME)   += dirname.o
@@ -76,12 +84,7 @@ lib-$(CONFIG_SYNC)      += sync.o
 lib-$(CONFIG_TAC)       += tac.o
 lib-$(CONFIG_TAIL)      += tail.o
 lib-$(CONFIG_TEE)       += tee.o
-lib-$(CONFIG_TEST)      += test.o test_ptr_hack.o
-lib-$(CONFIG_ASH)       += test.o test_ptr_hack.o # used by ash
-lib-$(CONFIG_HUSH)      += test.o test_ptr_hack.o # used by hush
-lib-$(CONFIG_MSH)       += test.o test_ptr_hack.o # used by msh
 lib-$(CONFIG_TOUCH)     += touch.o
-lib-$(CONFIG_TR)        += tr.o
 lib-$(CONFIG_TRUE)      += true.o
 lib-$(CONFIG_TTY)       += tty.o
 lib-$(CONFIG_UNAME)     += uname.o
