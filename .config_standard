@@ -1,6 +1,6 @@
 #
 # Automatically generated make config: don't edit
-# Busybox version: 1.17.1_SDX=LouZiffer-v2.00
+# Busybox version: 1.17.1_SDX=LouZiffer-v2.10
 # Wed Aug 11 10:55:28 2010
 #
 CONFIG_HAVE_DOT_CONFIG=y
@@ -59,8 +59,8 @@ CONFIG_STATIC=y
 # CONFIG_FEATURE_INDIVIDUAL is not set
 # CONFIG_FEATURE_SHARED_BUSYBOX is not set
 CONFIG_LFS=y
-CONFIG_CROSS_COMPILER_PREFIX="/home/louie/buildroot-2010.02/output/staging/usr/bin/arm-linux-uclibcgnueabi-"
-CONFIG_EXTRA_CFLAGS="-I /home/louie/buildroot-2010.02/output/staging/usr/include"
+CONFIG_CROSS_COMPILER_PREFIX="/home/louie/buildroot-2010.05/output/staging/usr/bin/arm-linux-"
+CONFIG_EXTRA_CFLAGS="-I /home/louie/buildroot-2010.05/output/staging/usr/include"
 
 #
 # Debugging Options

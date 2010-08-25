@@ -9,7 +9,7 @@
 		     http://www.sdx-developers.com/
 
 Release: busybox
-Version: v1.17.1_SDX-LouZiffer-v2.00
+Version: v1.17.2_SDX-LouZiffer-v2.10
 HW Platform: Multiplatform for ARM Processor
 SW Platform: Android 2.1 (Eclair)
 Maintainer: LouZiffer (louie@rps.net)
